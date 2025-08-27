@@ -12,7 +12,6 @@ export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const { data: recipes = [], isLoading, error } = useRecipes()
 
-
   const filteredRecipes: Recipe[] = useMemo(() => {
     if (!searchQuery) {
       return recipes
@@ -22,7 +21,6 @@ export default function ListOfRecipes() {
   }, [recipes, searchQuery])
 
   if (isLoading) {
-
     return (
       <View style={styles.container}>
         <Text>Loading...</Text>
