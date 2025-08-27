@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { InputEmail } from '@/components/InputEmail'
 import { InputPassword } from '@/components/InputPassword'
-import { ButtonRegister } from '@/components/ButtonRegister'
+import { ButtonLogin } from '@/components/ButtonLogin'
 import { useAuthStore } from '@/store/store'
+import { COLORS } from '@/constants/Colors'
 import { useRouter } from 'expo-router'
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-export default function TabOneScreen() {
-  const { register, isLoading, error, isLoggedIn } = useAuthStore()
+export default function LoginScreen() {
+  const { signIn, isLoading, error, isLoggedIn } = useAuthStore()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [isEmailValid, setIsEmailValid] = useState(false)
-  const isFormValid = isEmailValid && email && password
+  const isFormValid = !!email && !!password
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -22,22 +20,26 @@ export default function TabOneScreen() {
     }
   }, [isLoggedIn])
 
-  const handleRegister = () => {
-    register(email, password)
+  useEffect(() => {
+    if (error === 'user_not_found') {
+      router.replace('/register')
+    }
+  }, [error])
+
+  const handleLogin = () => {
+    signIn(email, password)
   }
 
-  const handleEmailChange = (text: string) => {
-    setEmail(text)
-    setIsEmailValid(emailRegex.test(text))
-  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome!</Text>
-      <InputEmail value={email} onChangeText={handleEmailChange} isValid={isEmailValid} />
+      <InputEmail value={email} onChangeText={setEmail} />
       <InputPassword value={password} onChangeText={setPassword} />
-      {error && <Text style={{ color: 'red' }}>{error}</Text>}
-      {isEmailValid || <Text style={{ color: 'red' }}>Please write a valid email address.</Text>}
-      <ButtonRegister onPress={handleRegister} isLoading={isLoading} disabled={!isFormValid} />
+      {error && error !== 'user_not_found' && <Text style={{ color: 'red' }}>{error}</Text>}
+      <ButtonLogin onPress={handleLogin} isLoading={isLoading} disabled={!isFormValid} />
+      <TouchableOpacity onPress={() => router.replace('/register')}>
+        <Text style={styles.link}>Sign Up</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -52,6 +54,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginVertical: 30,
+  },
+  link: {
+    marginTop: 20,
+    color: COLORS.LINK_COLOR,
   },
   separator: {
     marginVertical: 30,

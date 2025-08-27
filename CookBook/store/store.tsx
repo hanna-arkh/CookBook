@@ -21,7 +21,7 @@ export const useAuthStore = create<AuthState>(set => ({
       if (username === 'test@example.com' && password === 'password') {
         set({ userToken: 'fake-token', isLoggedIn: true })
       } else {
-        set({ error: 'Invalid email or password', isLoggedIn: false })
+        set({ error: 'user_not_found', isLoggedIn: false })
       }
     } finally {
       set({ isLoading: false })
