@@ -1,29 +1,27 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-//create input components and button
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { useEffect, useState } from 'react'
 import RecipesItem from '@/components/RecipesItem'
 import { FlatList } from 'react-native'
 import { Recipe } from '@/types/types'
+import { fetchRecipes } from '@/services/api/recipes'
+
 export default function ListOfRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchRecipes = async () => {
+    const getRecipes = async () => {
       try {
-        const response = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood')
-        const data = await response.json()
-        if (data.meals) {
-          setRecipes(data.meals)
-        }
+        const response = await fetchRecipes()
+        setRecipes(response)
       } catch (e) {
         console.error('Error', e)
       } finally {
         setLoading(false)
       }
     }
-    fetchRecipes()
+    getRecipes()
   }, [])
   if (loading) {
     return (
@@ -33,13 +31,13 @@ export default function ListOfRecipes() {
     )
   }
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={recipes}
         keyExtractor={item => item.idMeal}
         renderItem={({ item }) => <RecipesItem item={item} />}
       />
-    </View>
+    </SafeAreaView>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
-
+import { COLORS } from '@/constants/Colors'
 export const ButtonQuit = () => {
   return (
     <TouchableOpacity style={styles.button}>
@@ -11,7 +11,7 @@ export const ButtonQuit = () => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'red',
+    backgroundColor: COLORS.RED,
     borderRadius: 8,
     paddingVertical: 7,
     alignItems: 'center',
