@@ -1,3 +1,4 @@
+import '@/services/i18n'
 import React from 'react'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { useFonts } from 'expo-font'
@@ -7,6 +8,7 @@ import { useEffect } from 'react'
 import 'react-native-reanimated'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 const queryClient = new QueryClient()
+import '@/services/i18n'
 
 export { ErrorBoundary } from 'expo-router'
 

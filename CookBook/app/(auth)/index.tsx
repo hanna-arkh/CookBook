@@ -6,6 +6,8 @@ import { ButtonLogin } from '@/components/ButtonLogin'
 import { useAuthStore } from '@/store/store'
 import { COLORS } from '@/constants/Colors'
 import { useRouter } from 'expo-router'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher'
+import { useTranslation } from 'react-i18next'
 
 export default function LoginScreen() {
   const { signIn, isLoading, error, isLoggedIn } = useAuthStore()
@@ -13,6 +15,7 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const isFormValid = !!email && !!password
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -30,13 +33,16 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome!</Text>
+      <View style={styles.languageContainer}>
+        <LanguageSwitcher />
+      </View>
+      <Text style={styles.title}>{t('login.title')}</Text>
       <InputEmail value={email} onChangeText={setEmail} />
       <InputPassword value={password} onChangeText={setPassword} />
       {error && error !== 'user_not_found' && <Text style={{ color: 'red' }}>{error}</Text>}
       <ButtonLogin onPress={handleLogin} isLoading={isLoading} disabled={!isFormValid} />
       <TouchableOpacity onPress={() => router.push('/register')}>
-        <Text style={styles.link}>Sign Up</Text>
+        <Text style={styles.link}>{t('login.signUp')}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -47,6 +53,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  languageContainer: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
   },
   title: {
     fontSize: 20,
