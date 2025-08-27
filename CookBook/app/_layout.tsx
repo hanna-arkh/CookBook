@@ -40,7 +40,7 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="(tabs)" />
     </Stack>
   )
 }
