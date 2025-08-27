@@ -1,41 +1,35 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
 import RecipesItem from '@/components/RecipesItem'
 import { FlatList } from 'react-native'
 import { Recipe } from '@/types/types'
-import { fetchRecipes } from '@/services/api/recipes'
 import { COLORS } from '@/constants/Colors'
+import { useRecipes } from '@/hooks/useRecipes'
 
 export default function ListOfRecipes() {
-  const [recipes, setRecipes] = useState<Recipe[]>([])
-  const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const { data: recipes = [], isLoading, error } = useRecipes()
 
-  const filteredRecipes = useMemo(() => {
+  const filteredRecipes: Recipe[] = useMemo(() => {
     if (!searchQuery) {
       return recipes
     }
-    return recipes.filter(recipe =>
-      recipe.strMeal.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    const query = searchQuery.toLowerCase().trim()
+    return recipes.filter((recipe: Recipe) => recipe.strMeal.toLowerCase().includes(query))
   }, [recipes, searchQuery])
-  useEffect(() => {
-    const getRecipes = async () => {
-      try {
-        const response = await fetchRecipes()
-        setRecipes(response)
-      } catch (e) {
-        console.error('Error', e)
-      } finally {
-        setLoading(false)
-      }
-    }
-    getRecipes()
-  }, [])
-  if (loading) {
+
+  if (isLoading) {
     return (
       <View>
         <Text>Loading...</Text>
+      </View>
+    )
+  }
+
+  if (error) {
+    return (
+      <View>
+        <Text>Error loading recipes</Text>
       </View>
     )
   }
