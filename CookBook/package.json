@@ -17,6 +17,7 @@
     "@expo/vector-icons": "^14.1.0",
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-navigation/native": "^7.1.6",
+    "@tanstack/react-query": "^5.85.5",
     "eas-cli": "^16.18.0",
     "@tanstack/react-query": "^5.85.5",
     "expo": "~53.0.22",
