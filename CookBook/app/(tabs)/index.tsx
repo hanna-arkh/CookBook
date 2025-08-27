@@ -20,7 +20,7 @@ export default function ListOfRecipes() {
 
   if (isLoading) {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>Loading...</Text>
       </View>
     )
