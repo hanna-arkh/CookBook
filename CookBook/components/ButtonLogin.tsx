@@ -2,12 +2,9 @@ import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { ButtonRegisterProps } from '@/types/types'
 
-export const ButtonLogin = ({ isLoading, disabled }: ButtonRegisterProps) => {
-  const useAuth = () => {
-    return { isAuthenticated: true }
-  }
+export const ButtonLogin = ({ isLoading, disabled, onPress }: ButtonRegisterProps) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={useAuth} disabled={disabled || isLoading}>
+    <TouchableOpacity style={styles.button} onPress={onPress} disabled={disabled || isLoading}>
       <Text>Login</Text>
     </TouchableOpacity>
   )
