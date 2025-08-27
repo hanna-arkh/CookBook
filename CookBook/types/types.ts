@@ -6,7 +6,6 @@ export type Recipe = {
 export type PropsEmail = {
   value: string
   onChangeText: (text: string) => void
-  isValid: boolean
 }
 export type PropsPassword = {
   value: string
@@ -17,4 +16,8 @@ export type ButtonRegisterProps = {
   onPress: () => void
   isLoading: boolean
   disabled: boolean
+}
+
+export type ButtonQuitProps = {
+  onPress: () => void
 }
