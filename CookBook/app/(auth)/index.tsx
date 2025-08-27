@@ -20,14 +20,12 @@ export default function LoginScreen() {
     }
   }, [isLoggedIn])
 
-  useEffect(() => {
-    if (error === 'user_not_found') {
-      router.replace('/register')
+  const handleLogin = async () => {
+    try {
+      await signIn(email, password)
+    } catch (err) {
+      console.log('Login error:', err)
     }
-  }, [error])
-
-  const handleLogin = () => {
-    signIn(email, password)
   }
 
   return (
@@ -37,7 +35,7 @@ export default function LoginScreen() {
       <InputPassword value={password} onChangeText={setPassword} />
       {error && error !== 'user_not_found' && <Text style={{ color: 'red' }}>{error}</Text>}
       <ButtonLogin onPress={handleLogin} isLoading={isLoading} disabled={!isFormValid} />
-      <TouchableOpacity onPress={() => router.replace('/register')}>
+      <TouchableOpacity onPress={() => router.push('/register')}>
         <Text style={styles.link}>Sign Up</Text>
       </TouchableOpacity>
     </View>

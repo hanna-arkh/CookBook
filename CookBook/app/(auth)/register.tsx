@@ -39,7 +39,7 @@ export default function TabOneScreen() {
       {error && <Text style={{ color: 'red' }}>{error}</Text>}
       {isEmailValid || <Text style={{ color: 'red' }}>Please write a valid email address.</Text>}
       <ButtonRegister onPress={handleRegister} isLoading={isLoading} disabled={!isFormValid} />
-      <TouchableOpacity onPress={() => router.replace('/(auth)')}>
+      <TouchableOpacity onPress={() => router.push('/(auth)')}>
         <Text style={styles.link}>Sign In</Text>
       </TouchableOpacity>
     </View>
