@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
 import RecipesItem from '@/components/RecipesItem'
-import { FlatList } from 'react-native'
+import { FlatList, RefreshControl } from 'react-native'
 import { Recipe } from '@/types/types'
 import { COLORS } from '@/constants/Colors'
 import { useRecipes } from '@/hooks/useRecipes'
@@ -9,7 +9,15 @@ import { useRecipes } from '@/hooks/useRecipes'
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState('')
   const { data: recipes = [], isLoading, error } = useRecipes()
+  const [refreshing, setRefreshing] = useState(false)
 
+  const onRefresh = () => {
+    setRefreshing(true)
+    setTimeout(() => {
+      setSearchQuery('')
+    }, 2000)
+    setRefreshing(false)
+  }
   const filteredRecipes: Recipe[] = useMemo(() => {
     if (!searchQuery) {
       return recipes
@@ -46,6 +54,14 @@ export default function ListOfRecipes() {
         data={filteredRecipes}
         keyExtractor={item => item.idMeal}
         renderItem={({ item }) => <RecipesItem item={item} />}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={[COLORS.GREY]}
+            progressBackgroundColor={COLORS.BLACK}
+          />
+        }
       />
     </SafeAreaView>
   )
