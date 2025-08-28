@@ -1,11 +1,10 @@
 import React, { useState, useMemo } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
-import RecipesItem from '@/components/RecipesItem'
 import { FlatList, RefreshControl } from 'react-native'
 import { Recipe } from '@/types/types'
 import { COLORS } from '@/constants/Colors'
 import { useRecipes } from '@/hooks/useRecipes'
-
+import DraggableItem from '@/components/DraggableItem'
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState('')
   const { data: recipes = [], isLoading, error } = useRecipes()
@@ -53,7 +52,7 @@ export default function ListOfRecipes() {
       <FlatList
         data={filteredRecipes}
         keyExtractor={item => item.idMeal}
-        renderItem={({ item }) => <RecipesItem item={item} />}
+        renderItem={({ item }) => <DraggableItem item={item} />}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
