@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Button } from 'react-native'
 import { ButtonQuit } from '@/components/ButtonQuit'
 import { COLORS } from '@/constants/Colors'
 import { useRouter } from 'expo-router'
 import { useAuthStore } from '@/store/store'
 import { useTranslation } from 'react-i18next'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
+import * as Sentry from '@sentry/react-native'
 
 export default function Profile() {
   const { isLoggedIn, logout } = useAuthStore()
@@ -30,6 +31,12 @@ export default function Profile() {
       </View>
       <Text style={styles.loadingText}>{t('profile.loading')}</Text>
       <ButtonQuit onPress={handleLogout} />
+      <Button
+        title="Try!"
+        onPress={() => {
+          Sentry.captureException(new Error('First error'))
+        }}
+      />
     </View>
   )
 }
