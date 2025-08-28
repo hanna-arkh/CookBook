@@ -5,10 +5,12 @@ import { FlatList } from 'react-native'
 import { Recipe } from '@/types/types'
 import { COLORS } from '@/constants/Colors'
 import { useRecipes } from '@/hooks/useRecipes'
+import { useTranslation } from 'react-i18next'
 
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState('')
   const { data: recipes = [], isLoading, error } = useRecipes()
+  const { t } = useTranslation()
 
   const filteredRecipes: Recipe[] = useMemo(() => {
     if (!searchQuery) {
@@ -38,7 +40,7 @@ export default function ListOfRecipes() {
     <SafeAreaView style={styles.container}>
       <TextInput
         style={styles.searchInput}
-        placeholder="Search"
+        placeholder={t('common.search')}
         value={searchQuery}
         onChangeText={setSearchQuery}
       />

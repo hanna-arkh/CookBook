@@ -2,13 +2,16 @@ import React from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
 import { COLORS } from '@/constants/Colors'
 import { PropsPassword } from '@/types/types'
+import { useTranslation } from 'react-i18next'
 
 export const InputPassword = ({ value, onChangeText }: PropsPassword) => {
+  const { t } = useTranslation()
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder={t('login.password')}
         keyboardType="email-address"
         autoCorrect={false}
         secureTextEntry
