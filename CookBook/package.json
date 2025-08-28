@@ -7,11 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll",
     "lint": "eslint . --ext .js,.jsx,.tsx",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:ui": "jest --coverage --collectCoverageFrom='src/components/**/*.{ts,tsx}'"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "jest": {
     "preset": "jest-expo"
