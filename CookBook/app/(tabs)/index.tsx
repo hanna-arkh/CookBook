@@ -3,9 +3,9 @@ import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
 import RecipesItem from '@/components/RecipesItem'
 import { FlatList } from 'react-native'
 import { Recipe } from '@/types/types'
+import { COLORS, UI_LABELS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
 import { useTranslation } from 'react-i18next'
-import { COLORS, UI_LABELS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState<string>('')
