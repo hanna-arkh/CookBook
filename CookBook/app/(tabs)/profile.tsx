@@ -1,23 +1,23 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { ButtonQuit } from '@/components/ButtonQuit'
-import { COLORS } from '@/constants/Colors'
+import { COLORS, LAYOUT, ROUTES } from '@/constants/Constants'
 import { useRouter } from 'expo-router'
 import { useAuthStore } from '@/store/store'
+
 export default function Profile() {
   const { isLoggedIn, logout } = useAuthStore()
-
   const router = useRouter()
 
   useEffect(() => {
     if (!isLoggedIn) {
-      router.replace('/(auth)')
+      router.replace(ROUTES.AUTH)
     }
   }, [isLoggedIn, router])
 
   const handleLogout = () => {
     logout()
-    router.replace('/(auth)')
+    router.replace(ROUTES.AUTH)
   }
   return (
     <View style={styles.container}>
@@ -30,8 +30,8 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: LAYOUT.ALIGN.CENTER,
+    alignItems: LAYOUT.ALIGN.CENTER,
     backgroundColor: COLORS.WHITE,
     padding: 20,
   },
