@@ -3,12 +3,12 @@ import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
 import RecipesItem from '@/components/RecipesItem'
 import { FlatList } from 'react-native'
 import { Recipe } from '@/types/types'
-import { COLORS } from '@/constants/Colors'
 import { useRecipes } from '@/hooks/useRecipes'
 import { useTranslation } from 'react-i18next'
+import { COLORS, UI_LABELS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 
 export default function ListOfRecipes() {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState<string>('')
   const { data: recipes = [], isLoading, error } = useRecipes()
   const { t } = useTranslation()
 
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: FONT_STYLES.WEIGHT.BOLD,
     marginVertical: 30,
   },
   searchInput: {
@@ -75,6 +75,6 @@ const styles = StyleSheet.create({
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: LAYOUT.WIDTH.EIGHTY_PERCENT,
   },
 })

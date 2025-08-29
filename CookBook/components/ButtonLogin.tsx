@@ -2,7 +2,7 @@ import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { ButtonRegisterProps } from '@/types/types'
 import { useTranslation } from 'react-i18next'
-
+import { COLORS, LAYOUT } from '@/constants/Constants'
 export const ButtonLogin = ({ isLoading, disabled, onPress }: ButtonRegisterProps) => {
   const { t } = useTranslation()
 
@@ -14,11 +14,11 @@ export const ButtonLogin = ({ isLoading, disabled, onPress }: ButtonRegisterProp
 }
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: COLORS.BUTTON_REGISTRATION,
     borderRadius: 8,
     paddingVertical: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: LAYOUT.ALIGN.CENTER,
+    justifyContent: LAYOUT.ALIGN.CENTER,
     paddingHorizontal: 40,
   },
 })

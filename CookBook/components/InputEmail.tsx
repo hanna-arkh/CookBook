@@ -1,6 +1,6 @@
 import React from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
-import { COLORS } from '@/constants/Colors'
+import { COLORS, LAYOUT, AUTH } from '@/constants/Constants'
 import { PropsEmail } from '@/types/types'
 import { useTranslation } from 'react-i18next'
 
@@ -12,7 +12,7 @@ export const InputEmail = ({ value, onChangeText }: PropsEmail) => {
       <TextInput
         style={styles.input}
         placeholder={t('login.email')}
-        keyboardType="email-address"
+        keyboardType={AUTH.EMAIL_KEYBOARD}
         autoCorrect={false}
         value={value}
         onChangeText={onChangeText}
@@ -23,7 +23,7 @@ export const InputEmail = ({ value, onChangeText }: PropsEmail) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: LAYOUT.WIDTH.FULL,
     marginBottom: 16,
   },
   input: {
