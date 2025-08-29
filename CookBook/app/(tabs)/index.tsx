@@ -4,12 +4,12 @@ import RecipesItem from '@/components/RecipesItem'
 import { FlatList } from 'react-native'
 import { Recipe } from '@/types/types'
 import { fetchRecipes } from '@/services/api/recipes'
-import { COLORS } from '@/constants/Colors'
+import { COLORS, UI_LABELS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 
 export default function ListOfRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
-  const [loading, setLoading] = useState(true)
-  const [searchQuery, setSearchQuery] = useState('')
+  const [loading, setLoading] = useState<boolean>(true)
+  const [searchQuery, setSearchQuery] = useState<string>('')
 
   const filteredRecipes = useMemo(() => {
     if (!searchQuery) {
@@ -25,7 +25,7 @@ export default function ListOfRecipes() {
         const response = await fetchRecipes()
         setRecipes(response)
       } catch (e) {
-        console.error('Error', e)
+        console.error(UI_LABELS.ERROR, e)
       } finally {
         setLoading(false)
       }
@@ -44,7 +44,7 @@ export default function ListOfRecipes() {
     <SafeAreaView style={styles.container}>
       <TextInput
         style={styles.searchInput}
-        placeholder="Search"
+        placeholder={UI_LABELS.SEARCH}
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: FONT_STYLES.WEIGHT.BOLD,
     marginVertical: 30,
   },
   searchInput: {
@@ -79,6 +79,6 @@ const styles = StyleSheet.create({
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: LAYOUT.WIDTH.EIGHTY_PERCENT,
   },
 })

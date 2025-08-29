@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
-import { COLORS } from '@/constants/Colors'
+import { COLORS, LAYOUT } from '@/constants/Constants'
 import { ButtonRegisterProps } from '@/types/types'
 
 export const ButtonRegister = ({ onPress, isLoading, disabled }: ButtonRegisterProps) => {
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.BUTTON_REGISTRATION,
     borderRadius: 8,
     paddingVertical: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: LAYOUT.ALIGN.CENTER,
+    justifyContent: LAYOUT.ALIGN.CENTER,
     paddingHorizontal: 40,
   },
   disabledButton: {

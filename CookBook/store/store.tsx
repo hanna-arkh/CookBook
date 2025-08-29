@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import { AUTH, ALERTS } from '@/constants/Constants'
 
 type User = {
   email: string
@@ -38,16 +39,16 @@ export const useAuthStore = create<AuthState>()(
 
           if (user) {
             set({
-              userToken: 'user-token',
+              userToken: AUTH.STORAGE_KEY,
               isLoggedIn: true,
               currentUser: email,
               error: null,
             })
           } else {
-            set({ error: 'Invalid email or password', isLoggedIn: false })
+            set({ error: ALERTS.INVALID_CREDENTIALS, isLoggedIn: false })
           }
-        } catch (err) {
-          set({ error: 'Login failed', isLoggedIn: false })
+        } catch {
+          set({ error: ALERTS.LOGIN_FAILED, isLoggedIn: false })
         } finally {
           set({ isLoading: false })
         }
@@ -59,20 +60,20 @@ export const useAuthStore = create<AuthState>()(
           const { users } = get()
 
           if (users.some(u => u.email === email)) {
-            set({ error: 'User already exists', isLoggedIn: false })
+            set({ error: ALERTS.USER_EXISTS, isLoggedIn: false })
             return
           }
 
           const newUser = { email, password }
           set({
             users: [...users, newUser],
-            userToken: 'user-token',
+            userToken: AUTH.STORAGE_KEY,
             isLoggedIn: true,
             currentUser: email,
             error: null,
           })
-        } catch (err) {
-          set({ error: 'Registration failed', isLoggedIn: false })
+        } catch {
+          set({ error: ALERTS.REGISTRATION_FAILED, isLoggedIn: false })
         } finally {
           set({ isLoading: false })
         }
@@ -90,7 +91,7 @@ export const useAuthStore = create<AuthState>()(
       clearError: () => set({ error: null }),
     }),
     {
-      name: 'auth-storage',
+      name: AUTH.STORAGE_KEY,
       storage: createJSONStorage(() => AsyncStorage),
     }
   )

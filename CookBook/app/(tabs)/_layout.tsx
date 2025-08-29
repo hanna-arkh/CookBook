@@ -2,20 +2,20 @@ import React from 'react'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { Tabs } from 'expo-router'
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6'
-import { COLORS } from '@/constants/Colors'
+import { COLORS, ROUTES, ICONS, UI_LABELS } from '@/constants/Constants'
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof AntDesign>['name']
   color: string
 }) {
-  return <AntDesign name="profile" size={24} color="grey" />
+  return <AntDesign name={ROUTES.PROFILE} size={24} color={COLORS.GREY} />
 }
 
 function TabBarIconDish(props: {
   name: React.ComponentProps<typeof FontAwesome6>['name']
   color: string
 }) {
-  return <FontAwesome6 name="bowl-food" size={24} color="grey" />
+  return <FontAwesome6 name={ICONS.BOWL_FOOD} size={24} color={COLORS.GREY} />
 }
 
 export default function TabLayout() {
@@ -27,17 +27,17 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name={ROUTES.MAIN_TAB_INDEX}
         options={{
-          title: 'List of recipes',
-          tabBarIcon: ({ color }) => <TabBarIconDish color={color} name="bowl-food" />,
+          title: UI_LABELS.RECIPES_LIST,
+          tabBarIcon: ({ color }) => <TabBarIconDish color={color} name={ICONS.BOWL_FOOD} />,
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name={ROUTES.PROFILE}
         options={{
-          title: 'Profile',
-          tabBarIcon: ({ color }) => <TabBarIcon name="profile" color={color} />,
+          title: UI_LABELS.PROFILE,
+          tabBarIcon: ({ color }) => <TabBarIcon name={ROUTES.PROFILE} color={color} />,
         }}
       />
     </Tabs>
