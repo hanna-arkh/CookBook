@@ -19,6 +19,7 @@ type AuthState = {
   logout: () => Promise<void>
   clearError: () => void
   initializeAuth: () => Promise<void>
+  generateSecureToken: () => string
 }
 
 const secureStorage = {
@@ -61,8 +62,8 @@ export const useAuthStore = create<AuthState>()(
           const user = users.find(u => u.email === email && u.password === password)
 
           if (user) {
-            const token = this.generateSecureToken() 
-            
+            const token = get().generateSecureToken()
+
             await SecureStorage.setItem('userToken', token)
             await SecureStorage.setItem('userEmail', email)
             set({
@@ -71,80 +72,76 @@ export const useAuthStore = create<AuthState>()(
               currentUser: email,
               error: null,
             })
-            } else {
+          } else {
             set({ error: 'Invalid email or password', isLoggedIn: false })
-            }
-            } catch (err) {
-            set({ error: 'Login failed', isLoggedIn: false })
-            } finally {
-            set({ isLoading: false })
-            }
-            },
-            register: async (email: string, password: string) => {
-            set({ isLoading: true, error: null })
-            try {
-            const { users } = get()
-            
-            if (users.some(u => u.email === email)) {
+          }
+        } catch {
+          set({ error: 'Login failed', isLoggedIn: false })
+        } finally {
+          set({ isLoading: false })
+        }
+      },
+      register: async (email: string, password: string) => {
+        set({ isLoading: true, error: null })
+        try {
+          const { users } = get()
+
+          if (users.some(u => u.email === email)) {
             set({ error: 'User already exists', isLoggedIn: false })
             return
-            }
-            
-            const newUser = { email, password }
-            const token = this.generateSecureToken()
-            
-            await SecureStorage.setItem('userToken', token)
-            await SecureStorage.setItem('userEmail', email)
-            
-            set({
+          }
+
+          const newUser = { email, password }
+          const token = get().generateSecureToken()
+
+          await SecureStorage.setItem('userToken', token)
+          await SecureStorage.setItem('userEmail', email)
+
+          set({
             users: [...users, newUser],
             userToken: token,
             isLoggedIn: true,
             currentUser: email,
             error: null,
-            })
-            } catch (err) {
-            set({ error: 'Registration failed', isLoggedIn: false })
-            } finally {
-            set({ isLoading: false })
-            }
-            },
-            
-            logout: async () => {
-            try {
-            await SecureStorage.removeItem('userToken')
-            await SecureStorage.removeItem('userEmail')
-            
-            set({
+          })
+        } catch {
+          set({ error: 'Registration failed', isLoggedIn: false })
+        } finally {
+          set({ isLoading: false })
+        }
+      },
+
+      logout: async () => {
+        try {
+          await SecureStorage.removeItem('userToken')
+          await SecureStorage.removeItem('userEmail')
+
+          set({
             isLoggedIn: false,
             userToken: null,
             currentUser: null,
             error: null,
-            })
-            } catch (error) {
-            console.error('Logout error:', error)
-            }
-            },
-            
-            clearError: () => set({ error: null }),
-            
-            generateSecureToken: (): string => {
-            return 'eyJ' + Math.random().toString(36).substring(2) + Date.now().toString(36)
-            }
-            }),
-            {
-            name: 'auth-storage',
-            storage: {
-            getItem: secureStorage.getItem,
-            setItem: secureStorage.setItem,
-            removeItem: secureStorage.removeItem,
-            },
-            
-            partialize: (state) => ({
-            users: state.users,
-            currentUser: state.currentUser,
-            isLoggedIn: state.isLoggedIn,
-            }),
-            }
-            )
-            )
+          })
+        } catch (error) {
+          console.error('Logout error:', error)
+        }
+      },
+
+      clearError: () => set({ error: null }),
+
+      generateSecureToken: (): string => {
+        return 'eyJ' + Math.random().toString(36).substring(2) + Date.now().toString(36)
+      },
+    }),
+    {
+      name: 'auth-storage',
+      storage: createJSONStorage(() => secureStorage),
+
+      partialize: state => ({
+        users: state.users,
+        currentUser: state.currentUser,
+        isLoggedIn: state.isLoggedIn,
+      }),
+    }
+  )
+)
