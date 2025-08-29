@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 const queryClient = new QueryClient()
 import '@/services/i18n'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-
+import { useAuthStore } from '@/store/authStore'
 export { ErrorBoundary } from 'expo-router'
 
 export const unstable_settings = {
@@ -24,7 +24,13 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   })
+  const initializeAuth = useAuthStore(state => state.initializeAuth)
 
+  useEffect(() => {
+    initializeAuth()
+  }, [initializeAuth])
+
+}
   useEffect(() => {
     if (error) throw error
   }, [error])

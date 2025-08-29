@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import { SecureStorage } from '@/services/secureStorage'
 
 type User = {
   email: string
@@ -16,8 +16,21 @@ type AuthState = {
   currentUser: string | null
   signIn: (email: string, password: string) => Promise<void>
   register: (email: string, password: string) => Promise<void>
-  logout: () => void
+  logout: () => Promise<void>
   clearError: () => void
+  initializeAuth: () => Promise<void>
+}
+
+const secureStorage = {
+  getItem: async (name: string): Promise<string | null> => {
+    return SecureStorage.getItem(name)
+  },
+  setItem: async (name: string, value: string): Promise<void> => {
+    await SecureStorage.setItem(name, value)
+  },
+  removeItem: async (name: string): Promise<void> => {
+    await SecureStorage.removeItem(name)
+  },
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -30,68 +43,108 @@ export const useAuthStore = create<AuthState>()(
       users: [],
       currentUser: null,
 
-      signIn: async (email, password) => {
+      initializeAuth: async () => {
+        try {
+          const token = await SecureStorage.getItem('userToken')
+          if (token) {
+            set({ isLoggedIn: true, userToken: token })
+          }
+        } catch (error) {
+          console.error('Auth initialization error:', error)
+        }
+      },
+
+      signIn: async (email: string, password: string) => {
         set({ isLoading: true, error: null })
         try {
           const { users } = get()
           const user = users.find(u => u.email === email && u.password === password)
 
           if (user) {
+            const token = this.generateSecureToken() 
+            
+            await SecureStorage.setItem('userToken', token)
+            await SecureStorage.setItem('userEmail', email)
             set({
-              userToken: 'user-token',
+              userToken: token,
               isLoggedIn: true,
               currentUser: email,
               error: null,
             })
-          } else {
+            } else {
             set({ error: 'Invalid email or password', isLoggedIn: false })
-          }
-        } catch (err) {
-          set({ error: 'Login failed', isLoggedIn: false })
-        } finally {
-          set({ isLoading: false })
-        }
-      },
-
-      register: async (email, password) => {
-        set({ isLoading: true, error: null })
-        try {
-          const { users } = get()
-
-          if (users.some(u => u.email === email)) {
+            }
+            } catch (err) {
+            set({ error: 'Login failed', isLoggedIn: false })
+            } finally {
+            set({ isLoading: false })
+            }
+            },
+            register: async (email: string, password: string) => {
+            set({ isLoading: true, error: null })
+            try {
+            const { users } = get()
+            
+            if (users.some(u => u.email === email)) {
             set({ error: 'User already exists', isLoggedIn: false })
             return
-          }
-
-          const newUser = { email, password }
-          set({
+            }
+            
+            const newUser = { email, password }
+            const token = this.generateSecureToken()
+            
+            await SecureStorage.setItem('userToken', token)
+            await SecureStorage.setItem('userEmail', email)
+            
+            set({
             users: [...users, newUser],
-            userToken: 'user-token',
+            userToken: token,
             isLoggedIn: true,
             currentUser: email,
             error: null,
-          })
-        } catch (err) {
-          set({ error: 'Registration failed', isLoggedIn: false })
-        } finally {
-          set({ isLoading: false })
-        }
-      },
-
-      logout: () => {
-        set({
-          isLoggedIn: false,
-          userToken: null,
-          currentUser: null,
-          error: null,
-        })
-      },
-
-      clearError: () => set({ error: null }),
-    }),
-    {
-      name: 'auth-storage',
-      storage: createJSONStorage(() => AsyncStorage),
-    }
-  )
-)
+            })
+            } catch (err) {
+            set({ error: 'Registration failed', isLoggedIn: false })
+            } finally {
+            set({ isLoading: false })
+            }
+            },
+            
+            logout: async () => {
+            try {
+            await SecureStorage.removeItem('userToken')
+            await SecureStorage.removeItem('userEmail')
+            
+            set({
+            isLoggedIn: false,
+            userToken: null,
+            currentUser: null,
+            error: null,
+            })
+            } catch (error) {
+            console.error('Logout error:', error)
+            }
+            },
+            
+            clearError: () => set({ error: null }),
+            
+            generateSecureToken: (): string => {
+            return 'eyJ' + Math.random().toString(36).substring(2) + Date.now().toString(36)
+            }
+            }),
+            {
+            name: 'auth-storage',
+            storage: {
+            getItem: secureStorage.getItem,
+            setItem: secureStorage.setItem,
+            removeItem: secureStorage.removeItem,
+            },
+            
+            partialize: (state) => ({
+            users: state.users,
+            currentUser: state.currentUser,
+            isLoggedIn: state.isLoggedIn,
+            }),
+            }
+            )
+            )
