@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import { MMKV } from 'react-native-mmkv'
 import { AUTH, ALERTS } from '@/constants/Constants'
 
 type User = {
@@ -19,6 +19,20 @@ type AuthState = {
   register: (email: string, password: string) => Promise<void>
   logout: () => void
   clearError: () => void
+}
+
+const storage = new MMKV()
+
+const mmkvStorage = {
+  setItem: (name: string, value: string) => {
+    return storage.set(name, value)
+  },
+  getItem: (name: string) => {
+    return storage.getString(name) ?? null
+  },
+  removeItem: (name: string) => {
+    return storage.delete(name)
+  },
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -92,7 +106,7 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: AUTH.STORAGE_KEY,
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => mmkvStorage),
     }
   )
 )
