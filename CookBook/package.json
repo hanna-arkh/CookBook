@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
+    "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-navigation/native": "^7.1.6",
+    "eas-cli": "^16.18.0",
     "expo": "~53.0.22",
     "expo-font": "~13.3.2",
     "expo-linking": "~7.1.7",
@@ -27,15 +29,19 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.6",
+    "react-native-mmkv": "^2.12.2",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
-    "react-native-web": "~0.20.0"
+    "react-native-web": "~0.20.0",
+    "zustand": "^5.0.8",
+    "expo-dev-client": "~5.2.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@eslint/js": "^9.34.0",
     "@types/react": "~19.0.10",
+    "@types/react-native": "^0.72.8",
     "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
