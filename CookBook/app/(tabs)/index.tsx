@@ -8,8 +8,8 @@ import { COLORS } from '@/constants/Colors'
 
 export default function ListOfRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
-  const [loading, setLoading] = useState(true)
-  const [searchQuery, setSearchQuery] = useState('')
+  const [loading, setLoading] = useState<boolean>(true)
+  const [searchQuery, setSearchQuery] = useState<string>('')
 
   const filteredRecipes = useMemo(() => {
     if (!searchQuery) {
