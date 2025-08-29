@@ -10,8 +10,8 @@ import { useRouter } from 'expo-router'
 export default function LoginScreen() {
   const { signIn, isLoading, error, isLoggedIn } = useAuthStore()
   const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const isFormValid = !!email && !!password
 
   useEffect(() => {

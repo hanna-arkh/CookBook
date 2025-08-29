@@ -1,12 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { Recipe } from '@/types/types'
+import { UseRecipes } from '@/types/types'
 
-export const useRecipes = (): {
-  data: Recipe[]
-  isLoading: boolean
-  error: Error | null
-  isError: boolean
-} => {
+export const useRecipes = (): UseRecipes => {
   const result = useQuery<Recipe[], Error>({
     queryKey: ['recipes'],
     queryFn: async (): Promise<Recipe[]> => {

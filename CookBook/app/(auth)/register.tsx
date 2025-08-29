@@ -12,9 +12,9 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 export default function TabOneScreen() {
   const { register, isLoading, error, isLoggedIn } = useAuthStore()
   const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isEmailValid, setIsEmailValid] = useState(false)
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(false)
   const isFormValid = isEmailValid && email && password
 
   useEffect(() => {

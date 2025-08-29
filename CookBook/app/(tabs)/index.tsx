@@ -7,7 +7,7 @@ import { COLORS } from '@/constants/Colors'
 import { useRecipes } from '@/hooks/useRecipes'
 
 export default function ListOfRecipes() {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState<string>('')
   const { data: recipes = [], isLoading, error } = useRecipes()
 
   const filteredRecipes: Recipe[] = useMemo(() => {
