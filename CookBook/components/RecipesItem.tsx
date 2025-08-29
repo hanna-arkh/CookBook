@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Text, Image, StyleSheet } from 'react-native'
 import { Recipe } from '@/types/types'
-import { COLORS } from '@/constants/Colors'
+import { COLORS, LAYOUT } from '@/constants/Constants'
 
 export default function RecipesItem({ item }: { item: Recipe }) {
   return (
@@ -14,7 +14,7 @@ export default function RecipesItem({ item }: { item: Recipe }) {
 const recipeCardStyles = StyleSheet.create({
   card: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: LAYOUT.ALIGN.CENTER,
     padding: 10,
     marginVertical: 8,
     marginHorizontal: 16,

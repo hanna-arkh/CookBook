@@ -5,8 +5,7 @@ import { InputPassword } from '@/components/InputPassword'
 import { ButtonRegister } from '@/components/ButtonRegister'
 import { useAuthStore } from '@/store/store'
 import { useRouter } from 'expo-router'
-import { COLORS } from '@/constants/Colors'
-
+import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function TabOneScreen() {
@@ -19,7 +18,7 @@ export default function TabOneScreen() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      router.replace('/(tabs)')
+      router.replace(ROUTES.TABS)
     }
   }, [isLoggedIn])
 
@@ -36,10 +35,12 @@ export default function TabOneScreen() {
       <Text style={styles.title}>Lets sign up!</Text>
       <InputEmail value={email} onChangeText={handleEmailChange} isValid={isEmailValid} />
       <InputPassword value={password} onChangeText={setPassword} />
-      {error && <Text style={{ color: 'red' }}>{error}</Text>}
-      {isEmailValid || <Text style={{ color: 'red' }}>Please write a valid email address.</Text>}
+      {error && <Text style={{ color: COLORS.RED }}>{error}</Text>}
+      {isEmailValid || (
+        <Text style={{ color: COLORS.RED }}>Please write a valid email address.</Text>
+      )}
       <ButtonRegister onPress={handleRegister} isLoading={isLoading} disabled={!isFormValid} />
-      <TouchableOpacity onPress={() => router.push('/(auth)')}>
+      <TouchableOpacity onPress={() => router.push(ROUTES.AUTH)}>
         <Text style={styles.link}>Sign In</Text>
       </TouchableOpacity>
     </View>
@@ -49,12 +50,12 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: LAYOUT.ALIGN.CENTER,
+    justifyContent: LAYOUT.ALIGN.CENTER,
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: FONT_STYLES.WEIGHT.BOLD,
     marginVertical: 30,
   },
   link: {
@@ -64,6 +65,6 @@ const styles = StyleSheet.create({
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: LAYOUT.WIDTH.EIGHTY_PERCENT,
   },
 })

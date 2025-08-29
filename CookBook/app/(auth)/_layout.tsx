@@ -1,6 +1,6 @@
 import React from 'react'
 import { Stack } from 'expo-router'
-
+import { ROUTES } from '@/constants/Constants'
 export default function AuthLayout() {
   return (
     <Stack
@@ -8,8 +8,8 @@ export default function AuthLayout() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="register" />
+      <Stack.Screen name={ROUTES.MAIN_TAB_INDEX} />
+      <Stack.Screen name={ROUTES.REGISTER_NAME} />
     </Stack>
   )
 }
