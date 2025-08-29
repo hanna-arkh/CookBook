@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { InputEmail } from '@/components/InputEmail'
 import { InputPassword } from '@/components/InputPassword'
@@ -24,14 +24,14 @@ export default function TabOneScreen() {
     }
   }, [isLoggedIn])
 
-  const handleRegister = () => {
+  const handleRegister = useCallback(() => {
     register(email, password)
-  }
+  }, [register, email, password])
 
-  const handleEmailChange = (text: string) => {
+  const handleEmailChange = useCallback((text: string) => {
     setEmail(text)
     setIsEmailValid(emailRegex.test(text))
-  }
+  }, [])
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('login.letsSignUp')}</Text>
