@@ -7,6 +7,17 @@ import { useEffect } from 'react'
 import 'react-native-reanimated'
 import { ROUTES } from '@/constants/Constants'
 export { ErrorBoundary } from 'expo-router'
+import * as Notifications from 'expo-notifications'
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
+  }),
+})
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -36,6 +47,14 @@ export default function RootLayout() {
 
   return <RootLayoutNav />
 }
+
+useEffect(() => {
+  const subscription = Notifications.addNotificationReceivedListener(notification => {
+    console.log(' Notification received:', notification.request.content)
+  })
+
+  return () => subscription.remove()
+}, [])
 
 function RootLayoutNav() {
   return (

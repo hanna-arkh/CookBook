@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Button } from 'react-native'
 import { ButtonQuit } from '@/components/ButtonQuit'
 import { COLORS, LAYOUT, ROUTES } from '@/constants/Constants'
 import { useRouter } from 'expo-router'
 import { useAuthStore } from '@/store/store'
+import { sendMockNotification } from '@/services/notificationMock'
 
 export default function Profile() {
   const { isLoggedIn, logout } = useAuthStore()
@@ -19,10 +20,15 @@ export default function Profile() {
     logout()
     router.replace(ROUTES.AUTH)
   }
+
+  const handleReceivingNotification = async () => {
+    await sendMockNotification('New message', 'Its a test message', { type: 'message', id: '425' })
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.loadingText}>Loading Profile...</Text>
       <ButtonQuit onPress={handleLogout} />
+      <Button title="Receive a message" onPress={handleReceivingNotification} />
     </View>
   )
 }

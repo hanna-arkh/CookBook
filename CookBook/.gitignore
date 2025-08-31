@@ -35,3 +35,17 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# Android
+android/app/build/
+android/build/
+android/.gradle/
+android/.idea/
+android/local.properties
+android/*.keystore
+android/*.jks
+
+# iOS
+ios/build/
+ios/Pods/
+*.xcworkspace
