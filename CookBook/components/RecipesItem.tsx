@@ -1,12 +1,13 @@
 import React from 'react'
-import { TouchableOpacity, Text, Image, StyleSheet } from 'react-native'
+import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { Recipe } from '@/types/types'
 import { COLORS } from '@/constants/Colors'
+import { LazyImage } from 'react-native-lazy-image-loader'
 
 export default function RecipesItem({ item }: { item: Recipe }) {
   return (
     <TouchableOpacity style={recipeCardStyles.card}>
-      <Image source={{ uri: item.strMealThumb }} style={recipeCardStyles.image} />
+      <LazyImage source={{ uri: item.strMealThumb }} style={recipeCardStyles.image} />
       <Text style={recipeCardStyles.text}>{item.strMeal}</Text>
     </TouchableOpacity>
   )
