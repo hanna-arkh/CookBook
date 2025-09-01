@@ -6,6 +6,7 @@ import { ButtonRegister } from '@/components/ButtonRegister'
 import { useAuthStore } from '@/store/store'
 import { useRouter } from 'expo-router'
 import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
+import ButtonSwitchAuth from '@/components/ButtonSwitchAuth'
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -41,9 +42,7 @@ export default function RegistrationScreen() {
         <Text style={{ color: COLORS.RED }}>Please write a valid email address.</Text>
       )}
       <ButtonRegister onPress={handleRegister} isLoading={isLoading} disabled={!isFormValid} />
-      <TouchableOpacity onPress={() => router.push(ROUTES.AUTH)}>
-        <Text style={styles.link}>Sign In</Text>
-      </TouchableOpacity>
+      <ButtonSwitchAuth />
     </View>
   )
 }

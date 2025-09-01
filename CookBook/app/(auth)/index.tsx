@@ -7,7 +7,7 @@ import { useAuthStore } from '@/store/store'
 import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import { useRouter } from 'expo-router'
 import { ALERTS } from '@/constants/Strings'
-
+import ButtonSwitchAuth from '@/components/ButtonSwitchAuth'
 export default function LoginScreen() {
   const { signIn, isLoading, error, isLoggedIn } = useAuthStore()
   const router = useRouter()
@@ -38,9 +38,7 @@ export default function LoginScreen() {
         <Text style={{ color: COLORS.RED }}>{error}</Text>
       )}
       <ButtonLogin onPress={handleLogin} isLoading={isLoading} disabled={!isFormValid} />
-      <TouchableOpacity onPress={() => router.push(ROUTES.REGISTER)}>
-        <Text style={styles.link}>Sign Up</Text>
-      </TouchableOpacity>
+      <ButtonSwitchAuth />
     </View>
   )
 }
