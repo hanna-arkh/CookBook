@@ -14,4 +14,6 @@ export const UI_LABELS = {
   SEARCH: 'Search',
   ERROR: 'Error',
   NAME: 'name',
+  SIGN_UP: 'Sign Up',
+  LOG_IN: 'Log in',
 } as const
