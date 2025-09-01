@@ -31,13 +31,13 @@
     "plugins": [
       "expo-router",
       [
-        "@sentry/react-native/expo",
+        "sentry-expo",
         {
-          "url": "https://sentry.io/",
           "project": "react-native",
           "organization": "hannaarkh"
         }
-      ]
+      ],
+      "sentry-expo"
     ],
     "experiments": {
       "typedRoutes": true
