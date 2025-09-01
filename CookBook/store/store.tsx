@@ -1,7 +1,8 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { MMKV } from 'react-native-mmkv'
-import { AUTH, ALERTS } from '@/constants/Constants'
+import { AUTH } from '@/constants/Constants'
+import { ALERTS } from '@/constants/Strings'
 
 type User = {
   email: string

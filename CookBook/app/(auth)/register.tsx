@@ -6,9 +6,10 @@ import { ButtonRegister } from '@/components/ButtonRegister'
 import { useAuthStore } from '@/store/store'
 import { useRouter } from 'expo-router'
 import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
+
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-export default function TabOneScreen() {
+export default function RegistrationScreen() {
   const { register, isLoading, error, isLoggedIn } = useAuthStore()
   const router = useRouter()
   const [email, setEmail] = useState<string>('')

@@ -4,8 +4,9 @@ import { InputEmail } from '@/components/InputEmail'
 import { InputPassword } from '@/components/InputPassword'
 import { ButtonLogin } from '@/components/ButtonLogin'
 import { useAuthStore } from '@/store/store'
-import { COLORS, ALERTS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
+import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import { useRouter } from 'expo-router'
+import { ALERTS } from '@/constants/Strings'
 
 export default function LoginScreen() {
   const { signIn, isLoading, error, isLoggedIn } = useAuthStore()

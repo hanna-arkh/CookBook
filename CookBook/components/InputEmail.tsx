@@ -1,6 +1,8 @@
 import React from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
-import { COLORS, LAYOUT, AUTH, UI_LABELS } from '@/constants/Constants'
+import { COLORS, LAYOUT, AUTH } from '@/constants/Constants'
+import { UI_LABELS } from '@/constants/Strings'
+
 import { PropsEmail } from '@/types/types'
 export const InputEmail = ({ value, onChangeText }: PropsEmail) => {
   return (
