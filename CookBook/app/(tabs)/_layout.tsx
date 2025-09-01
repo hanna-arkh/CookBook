@@ -4,6 +4,7 @@ import { Tabs } from 'expo-router'
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6'
 import { COLORS, ROUTES, ICONS } from '@/constants/Constants'
 import { UI_LABELS } from '@/constants/Strings'
+
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof AntDesign>['name']
   color: string

@@ -4,6 +4,7 @@ import { MMKV } from 'react-native-mmkv'
 import { AUTH } from '@/constants/Constants'
 import { ALERTS } from '@/constants/Strings'
 
+
 type User = {
   email: string
   password: string
