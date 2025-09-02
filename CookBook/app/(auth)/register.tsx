@@ -7,6 +7,8 @@ import { useAuthStore } from '@/store/store'
 import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
+import { useTranslation } from 'react-i18next'
+
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function TabOneScreen() {
