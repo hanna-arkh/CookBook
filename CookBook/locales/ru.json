@@ -5,10 +5,12 @@
     "password": "Пароль",
     "loginButton": "Войти",
     "signUp": "Зарегистрироваться",
+    "letsSignUp": "Давайте зарегистрируемся!",
     "noAccount": "Нет аккаунта?",
     "errors": {
       "invalidCredentials": "Неверный email или пароль",
-      "loginFailed": "Ошибка входа"
+      "loginFailed": "Ошибка входа",
+      "invalidEmail": "Пожалуйста, напишите правильный емейл."
     }
   },
   "profile": {

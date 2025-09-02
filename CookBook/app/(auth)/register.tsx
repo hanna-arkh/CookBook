@@ -6,6 +6,7 @@ import { ButtonRegister } from '@/components/ButtonRegister'
 import { useAuthStore } from '@/store/store'
 import { useRouter } from 'expo-router'
 import { COLORS } from '@/constants/Colors'
+import { useTranslation } from 'react-i18next'
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -16,6 +17,7 @@ export default function TabOneScreen() {
   const [password, setPassword] = useState('')
   const [isEmailValid, setIsEmailValid] = useState(false)
   const isFormValid = isEmailValid && email && password
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -33,14 +35,14 @@ export default function TabOneScreen() {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Lets sign up!</Text>
+      <Text style={styles.title}>{t('login.letsSignUp')}</Text>
       <InputEmail value={email} onChangeText={handleEmailChange} isValid={isEmailValid} />
       <InputPassword value={password} onChangeText={setPassword} />
       {error && <Text style={{ color: 'red' }}>{error}</Text>}
-      {isEmailValid || <Text style={{ color: 'red' }}>Please write a valid email address.</Text>}
+      {isEmailValid || <Text style={{ color: 'red' }}>{t('login.invalidEmail')}</Text>}
       <ButtonRegister onPress={handleRegister} isLoading={isLoading} disabled={!isFormValid} />
       <TouchableOpacity onPress={() => router.push('/(auth)')}>
-        <Text style={styles.link}>Sign In</Text>
+        <Text style={styles.link}>{t('login.loginButton')}</Text>
       </TouchableOpacity>
     </View>
   )

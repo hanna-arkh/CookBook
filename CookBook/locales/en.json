@@ -5,10 +5,12 @@
     "password": "Password",
     "loginButton": "Login",
     "signUp": "Sign Up",
+    "letsSignUp": "Lets sign up!",
     "noAccount": "Don't have an account?",
     "errors": {
       "invalidCredentials": "Invalid email or password",
-      "loginFailed": "Login failed"
+      "loginFailed": "Login failed",
+      "invalidEmail": "Please write a valid email address."
     }
   },
   "profile": {
