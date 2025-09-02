@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import 'react-native-reanimated'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 const queryClient = new QueryClient()
+import '@/services/i18n'
 
 export { ErrorBoundary } from 'expo-router'
 

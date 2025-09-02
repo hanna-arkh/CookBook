@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCallback, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import { StyleSheet, Text, View } from 'react-native'
 import { InputEmail } from '@/components/InputEmail'
@@ -10,6 +10,8 @@ import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import { useRouter } from 'expo-router'
 import { ALERTS } from '@/constants/Strings'
 import ButtonSwitchAuth from '@/components/ButtonSwitchAuth'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher'
+import { useTranslation } from 'react-i18next'
 
 export default function LoginScreen() {
   const { signIn, isLoading, error, isLoggedIn } = useAuthStore()
@@ -17,6 +19,7 @@ export default function LoginScreen() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const isFormValid = !!email && !!password
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -34,7 +37,10 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome!</Text>
+      <View style={styles.languageContainer}>
+        <LanguageSwitcher />
+      </View>
+      <Text style={styles.title}>{t('login.title')}</Text>
       <InputEmail value={email} onChangeText={setEmail} />
       <InputPassword value={password} onChangeText={setPassword} />
       {error && error !== ALERTS.USER_NOT_FOUND && (
@@ -51,6 +57,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: LAYOUT.ALIGN.CENTER,
     justifyContent: LAYOUT.ALIGN.CENTER,
+  },
+  languageContainer: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
   },
   title: {
     fontSize: 20,

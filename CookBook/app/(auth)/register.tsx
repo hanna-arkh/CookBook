@@ -7,6 +7,7 @@ import { useAuthStore } from '@/store/store'
 import { useRouter } from 'expo-router'
 import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import ButtonSwitchAuth from '@/components/ButtonSwitchAuth'
+import { useTranslation } from 'react-i18next'
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -17,6 +18,7 @@ export default function RegistrationScreen() {
   const [password, setPassword] = useState<string>('')
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false)
   const isFormValid = isEmailValid && email && password
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -34,13 +36,11 @@ export default function RegistrationScreen() {
   }, [])
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Lets sign up!</Text>
+      <Text style={styles.title}>{t('login.letsSignUp')}</Text>
       <InputEmail value={email} onChangeText={handleEmailChange} isValid={isEmailValid} />
       <InputPassword value={password} onChangeText={setPassword} />
       {error && <Text style={{ color: COLORS.RED }}>{error}</Text>}
-      {isEmailValid || (
-        <Text style={{ color: COLORS.RED }}>Please write a valid email address.</Text>
-      )}
+      {isEmailValid || <Text style={{ color: COLORS.RED }}>{t('login.errors.invalidEmail')}</Text>}
       <ButtonRegister onPress={handleRegister} isLoading={isLoading} disabled={!isFormValid} />
       <ButtonSwitchAuth />
     </View>
