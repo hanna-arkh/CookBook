@@ -1,9 +1,9 @@
 import { Link, Stack } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import React from 'react'
-import { COLORS, LAYOUT, ALERTS, FONT_STYLES } from '@/constants/Constants'
+import { COLORS, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import { Text, View } from 'react-native'
-
+import { ALERTS } from '@/constants/Strings'
 export default function NotFoundScreen() {
   return (
     <>

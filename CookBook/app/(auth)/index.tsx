@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { useCallback, useState, useEffect } from 'react'
+
+import { StyleSheet, Text, View } from 'react-native'
 import { InputEmail } from '@/components/InputEmail'
 import { InputPassword } from '@/components/InputPassword'
 import { ButtonLogin } from '@/components/ButtonLogin'
 import { useAuthStore } from '@/store/store'
-import { COLORS, ALERTS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
+import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import { useRouter } from 'expo-router'
+import { ALERTS } from '@/constants/Strings'
+import ButtonSwitchAuth from '@/components/ButtonSwitchAuth'
 
 export default function LoginScreen() {
   const { signIn, isLoading, error, isLoggedIn } = useAuthStore()
@@ -37,9 +41,7 @@ export default function LoginScreen() {
         <Text style={{ color: COLORS.RED }}>{error}</Text>
       )}
       <ButtonLogin onPress={handleLogin} isLoading={isLoading} disabled={!isFormValid} />
-      <TouchableOpacity onPress={() => router.push(ROUTES.REGISTER)}>
-        <Text style={styles.link}>Sign Up</Text>
-      </TouchableOpacity>
+      <ButtonSwitchAuth />
     </View>
   )
 }

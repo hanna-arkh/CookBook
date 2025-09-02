@@ -1,7 +1,8 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { MMKV } from 'react-native-mmkv'
-import { AUTH, ALERTS } from '@/constants/Constants'
+import { AUTH } from '@/constants/Constants'
+import { ALERTS } from '@/constants/Strings'
+import * as SQLite from 'expo-sqlite'
 
 type User = {
   email: string
@@ -21,17 +22,43 @@ type AuthState = {
   clearError: () => void
 }
 
-const storage = new MMKV()
+async function setupDatabase(): Promise<SQLite.SQLiteDatabase> {
+  const db = await SQLite.openDatabaseAsync('app-storage.db')
+  await db.execAsync(`
+    PRAGMA journal_mode = WAL;
+    CREATE TABLE IF NOT EXISTS kv (
+      key TEXT PRIMARY KEY NOT NULL,
+      value TEXT NOT NULL
+    );
+  `)
+  return db
+}
 
-const mmkvStorage = {
-  setItem: (name: string, value: string) => {
-    return storage.set(name, value)
+const dbPromise = setupDatabase()
+
+const Storage = {
+  setItem: async (key: string, value: string): Promise<void> => {
+    const db = await dbPromise
+    await db.runAsync('INSERT OR REPLACE INTO kv (key, value) VALUES (?, ?)', key, value)
   },
-  getItem: (name: string) => {
-    return storage.getString(name) ?? null
+
+  getItem: async (key: string): Promise<string | null> => {
+    const db = await dbPromise
+    const result = await db.getFirstAsync<{ value: string }>(
+      'SELECT value FROM kv WHERE key = ?',
+      key
+    )
+    return result?.value ?? null
   },
-  removeItem: (name: string) => {
-    return storage.delete(name)
+
+  removeItem: async (key: string): Promise<void> => {
+    const db = await dbPromise
+    await db.runAsync('DELETE FROM kv WHERE key = ?', key)
+  },
+
+  clearAll: async (): Promise<void> => {
+    const db = await dbPromise
+    await db.runAsync('DELETE FROM kv')
   },
 }
 
@@ -106,7 +133,7 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: AUTH.STORAGE_KEY,
-      storage: createJSONStorage(() => mmkvStorage),
+      storage: createJSONStorage(() => Storage),
     }
   )
 )
