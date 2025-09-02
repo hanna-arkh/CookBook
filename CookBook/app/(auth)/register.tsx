@@ -5,7 +5,6 @@ import { InputPassword } from '@/components/InputPassword'
 import { ButtonRegister } from '@/components/ButtonRegister'
 import { useAuthStore } from '@/store/store'
 import { useRouter } from 'expo-router'
-import { useTranslation } from 'react-i18next'
 import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import { useTranslation } from 'react-i18next'
 
@@ -40,7 +39,7 @@ export default function TabOneScreen() {
       <InputEmail value={email} onChangeText={handleEmailChange} isValid={isEmailValid} />
       <InputPassword value={password} onChangeText={setPassword} />
       {error && <Text style={{ color: COLORS.RED }}>{error}</Text>}
-      {isEmailValid || <Text style={{ color: COLORS.RED }}>{t('login.invalidEmail')}</Text>}
+      {isEmailValid || <Text style={{ color: COLORS.RED }}>{t('login.errors.invalidEmail')}</Text>}
       <ButtonRegister onPress={handleRegister} isLoading={isLoading} disabled={!isFormValid} />
       <TouchableOpacity onPress={() => router.push(ROUTES.AUTH)}>
         <Text style={styles.link}>{t('login.loginButton')}</Text>

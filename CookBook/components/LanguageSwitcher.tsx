@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { useLanguage } from '@/hooks/useLanguage'
-import { COLORS } from '@/constants/Colors'
+import { COLORS } from '@/constants/Constants'
 
 export const LanguageSwitcher: React.FC = () => {
   const { currentLanguage, toggleLanguage } = useLanguage()
