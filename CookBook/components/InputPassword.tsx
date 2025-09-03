@@ -21,7 +21,6 @@ export const InputPassword = ({ value, onChangeText }: PropsPassword) => {
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     width: LAYOUT.WIDTH.FULL,

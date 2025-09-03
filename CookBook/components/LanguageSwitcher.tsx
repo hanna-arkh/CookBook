@@ -12,7 +12,6 @@ export const LanguageSwitcher: React.FC = () => {
     </TouchableOpacity>
   )
 }
-
 const styles = StyleSheet.create({
   button: {
     padding: 10,

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-
 import { StyleSheet, Text, View } from 'react-native'
 import { InputEmail } from '@/components/InputEmail'
 import { InputPassword } from '@/components/InputPassword'
@@ -20,13 +19,11 @@ export default function LoginScreen() {
   const [password, setPassword] = useState<string>('')
   const isFormValid = !!email && !!password
   const { t } = useTranslation()
-
   useEffect(() => {
     if (isLoggedIn) {
       router.replace(ROUTES.TABS_DOT)
     }
   }, [isLoggedIn])
-
   const handleLogin = async () => {
     try {
       await signIn(email, password)
@@ -51,7 +48,6 @@ export default function LoginScreen() {
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

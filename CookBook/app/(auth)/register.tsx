@@ -8,7 +8,6 @@ import { useRouter } from 'expo-router'
 import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import ButtonSwitchAuth from '@/components/ButtonSwitchAuth'
 import { useTranslation } from 'react-i18next'
-
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function RegistrationScreen() {
@@ -19,21 +18,19 @@ export default function RegistrationScreen() {
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false)
   const isFormValid = isEmailValid && email && password
   const { t } = useTranslation()
-
   useEffect(() => {
     if (isLoggedIn) {
       router.replace(ROUTES.TABS)
     }
   }, [isLoggedIn])
-
   const handleRegister = useCallback(() => {
     register(email, password)
   }, [register, email, password])
-
   const handleEmailChange = useCallback((text: string) => {
     setEmail(text)
     setIsEmailValid(emailRegex.test(text))
   }, [])
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('login.letsSignUp')}</Text>
@@ -46,7 +43,6 @@ export default function RegistrationScreen() {
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

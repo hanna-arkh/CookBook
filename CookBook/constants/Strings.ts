@@ -6,6 +6,7 @@ export const ALERTS = {
   USER_EXISTS: 'User already exists',
   USER_NOT_FOUND: 'user_not_found',
 } as const
+
 export const UI_LABELS = {
   RECIPES_LIST: 'List of recipes',
   PROFILE: 'Profile',

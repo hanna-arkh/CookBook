@@ -5,7 +5,7 @@ import { ButtonQuitProps } from '@/types/types'
 import { useTranslation } from 'react-i18next'
 
 export const ButtonQuit = ({ onPress }: ButtonQuitProps) => {
-    const { t } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
@@ -13,7 +13,6 @@ export const ButtonQuit = ({ onPress }: ButtonQuitProps) => {
     </TouchableOpacity>
   )
 }
-
 const styles = StyleSheet.create({
   button: {
     backgroundColor: COLORS.RED,

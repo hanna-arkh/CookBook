@@ -11,6 +11,7 @@ export default function ButtonSwitchAuth() {
   const isRegister = mode === 'register'
   const routeName = isRegister ? ROUTES.AUTH : ROUTES.REGISTER
   const linkText = isRegister ? t('login.loginButton') : t('login.signUp')
+
   return (
     <View>
       <TouchableOpacity onPress={() => router.push(routeName)}>
@@ -19,7 +20,6 @@ export default function ButtonSwitchAuth() {
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   link: {
     marginTop: 20,

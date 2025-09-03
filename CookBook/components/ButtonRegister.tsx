@@ -17,7 +17,6 @@ export const ButtonRegister = ({ onPress, isLoading, disabled }: ButtonRegisterP
     </TouchableOpacity>
   )
 }
-
 const styles = StyleSheet.create({
   button: {
     backgroundColor: COLORS.BUTTON_REGISTRATION,

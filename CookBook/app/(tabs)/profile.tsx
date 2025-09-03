@@ -11,17 +11,16 @@ export default function Profile() {
   const { isLoggedIn, logout } = useAuthStore()
   const router = useRouter()
   const { t } = useTranslation()
-
   useEffect(() => {
     if (!isLoggedIn) {
       router.replace(ROUTES.AUTH)
     }
   }, [isLoggedIn, router])
-
   const handleLogout = () => {
     logout()
     router.replace(ROUTES.AUTH)
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.languageContainer}>
@@ -32,7 +31,6 @@ export default function Profile() {
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

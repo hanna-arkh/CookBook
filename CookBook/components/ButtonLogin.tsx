@@ -3,8 +3,9 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { ButtonRegisterProps } from '@/types/types'
 import { useTranslation } from 'react-i18next'
 import { COLORS, LAYOUT } from '@/constants/Constants'
+
 export const ButtonLogin = ({ isLoading, disabled, onPress }: ButtonRegisterProps) => {
-    const { t } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <TouchableOpacity style={styles.button} onPress={onPress} disabled={disabled || isLoading}>

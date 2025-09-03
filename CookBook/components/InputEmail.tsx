@@ -20,7 +20,6 @@ export const InputEmail = ({ value, onChangeText }: PropsEmail) => {
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     width: LAYOUT.WIDTH.FULL,

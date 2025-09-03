@@ -3,12 +3,10 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { AUTH } from '@/constants/Constants'
 import { ALERTS } from '@/constants/Strings'
 import * as SQLite from 'expo-sqlite'
-
 type User = {
   email: string
   password: string
 }
-
 type AuthState = {
   isLoggedIn: boolean
   userToken: string | null
@@ -21,7 +19,6 @@ type AuthState = {
   logout: () => void
   clearError: () => void
 }
-
 async function setupDatabase(): Promise<SQLite.SQLiteDatabase> {
   const db = await SQLite.openDatabaseAsync('app-storage.db')
   await db.execAsync(`
@@ -31,11 +28,10 @@ async function setupDatabase(): Promise<SQLite.SQLiteDatabase> {
       value TEXT NOT NULL
     );
   `)
+
   return db
 }
-
 const dbPromise = setupDatabase()
-
 const Storage = {
   setItem: async (key: string, value: string): Promise<void> => {
     const db = await dbPromise
@@ -48,6 +44,7 @@ const Storage = {
       'SELECT value FROM kv WHERE key = ?',
       key
     )
+
     return result?.value ?? null
   },
 
@@ -77,7 +74,6 @@ export const useAuthStore = create<AuthState>()(
         try {
           const { users } = get()
           const user = users.find(u => u.email === email && u.password === password)
-
           if (user) {
             set({
               userToken: AUTH.STORAGE_KEY,
@@ -99,12 +95,11 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true, error: null })
         try {
           const { users } = get()
-
           if (users.some(u => u.email === email)) {
             set({ error: ALERTS.USER_EXISTS, isLoggedIn: false })
+
             return
           }
-
           const newUser = { email, password }
           set({
             users: [...users, newUser],
