@@ -8,6 +8,7 @@ import 'react-native-reanimated'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 const queryClient = new QueryClient()
 import '@/services/i18n'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export { ErrorBoundary } from 'expo-router'
 
@@ -37,10 +38,12 @@ export default function RootLayout() {
 }
 function RootLayoutNav() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-    </QueryClientProvider>
+    <GestureHandlerRootView>
+      <QueryClientProvider client={queryClient}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   )
 }

@@ -1,11 +1,11 @@
 import React, { useState, useMemo, useCallback } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
-import RecipesItem from '@/components/RecipesItem'
-import { FlatList, RefreshControl } from 'react-native'
+import { FlatList } from 'react-native'
 import { Recipe } from '@/types/types'
 import { COLORS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
 import { UI_LABELS } from '@/constants/Strings'
+import DraggableItem from '@/components/DraggableItem'
 
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -26,7 +26,7 @@ export default function ListOfRecipes() {
 
     return recipes.filter((recipe: Recipe) => recipe.strMeal.toLowerCase().includes(query))
   }, [recipes, searchQuery])
-  const renderItem = useCallback(({ item }: { item: Recipe }) => <RecipesItem item={item} />, [])
+  const renderItem = useCallback(({ item }: { item: Recipe }) => <DraggableItem item={item} />, [])
   if (isLoading) {
     return (
       <View style={styles.container}>
