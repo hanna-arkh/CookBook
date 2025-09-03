@@ -7,13 +7,13 @@ import { useEffect } from 'react'
 import 'react-native-reanimated'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 const queryClient = new QueryClient()
+import '@/services/i18n'
 
 export { ErrorBoundary } from 'expo-router'
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
 }
-
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
@@ -21,24 +21,20 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   })
-
   useEffect(() => {
     if (error) throw error
   }, [error])
-
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync()
     }
   }, [loaded])
-
   if (!loaded) {
     return null
   }
 
   return <RootLayoutNav />
 }
-
 function RootLayoutNav() {
   return (
     <QueryClientProvider client={queryClient}>

@@ -10,6 +10,7 @@ export const COLORS = {
   INPUT_BG_COLOR: '#f0f0f0',
   INPUT_BORDER: '#ccc',
 } as const
+
 export const ROUTES = {
   TABS: '/(tabs)',
   AUTH: '/(auth)',

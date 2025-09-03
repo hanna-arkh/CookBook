@@ -3,10 +3,12 @@ export type Recipe = {
   strMealThumb: string
   idMeal: string
 }
+
 export type PropsEmail = {
   value: string
   onChangeText: (text: string) => void
 }
+
 export type PropsPassword = {
   value: string
   onChangeText: (text: string) => void
@@ -21,6 +23,7 @@ export type ButtonRegisterProps = {
 export type ButtonQuitProps = {
   onPress: () => void
 }
+
 export type UseRecipes = {
   data: Recipe[]
   isLoading: boolean

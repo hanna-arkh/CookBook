@@ -1,14 +1,17 @@
 import React from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
 import { COLORS, LAYOUT, AUTH } from '@/constants/Constants'
-import { UI_LABELS } from '@/constants/Strings'
 import { PropsEmail } from '@/types/types'
+import { useTranslation } from 'react-i18next'
+
 export const InputEmail = ({ value, onChangeText }: PropsEmail) => {
+  const { t } = useTranslation()
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder={UI_LABELS.EMAIL}
+        placeholder={t('login.email')}
         keyboardType={AUTH.EMAIL_KEYBOARD}
         autoCorrect={false}
         value={value}
@@ -17,7 +20,6 @@ export const InputEmail = ({ value, onChangeText }: PropsEmail) => {
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     width: LAYOUT.WIDTH.FULL,

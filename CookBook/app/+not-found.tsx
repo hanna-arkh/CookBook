@@ -4,6 +4,7 @@ import React from 'react'
 import { COLORS, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import { Text, View } from 'react-native'
 import { ALERTS } from '@/constants/Strings'
+
 export default function NotFoundScreen() {
   return (
     <>
@@ -18,7 +19,6 @@ export default function NotFoundScreen() {
     </>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

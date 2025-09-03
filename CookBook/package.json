@@ -35,7 +35,7 @@
     "i18next-browser-languagedetector": "^8.2.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-i18next": "^15.7.2",
+    "react-i18next": "^15.7.3",
     "react-native": "0.79.6",
     "react-native-mmkv": "^2.12.2",
     "react-native-reanimated": "~3.17.4",
