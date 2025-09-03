@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputEmail Component looks correct (snapshot) 1`] = `
+<View
+  style={
+    {
+      "marginBottom": 16,
+      "width": "100%",
+    }
+  }
+>
+  <TextInput
+    autoCorrect={false}
+    keyboardType="email-address"
+    onChangeText={[Function]}
+    placeholder="Электронная почта"
+    style={
+      {
+        "backgroundColor": "#f0f0f0",
+        "borderColor": "#ccc",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "color": "black",
+        "fontSize": 16,
+        "marginHorizontal": 20,
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      }
+    }
+    value="test@example.com"
+  />
+</View>
+`;
