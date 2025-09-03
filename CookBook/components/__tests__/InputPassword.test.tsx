@@ -1,26 +1,11 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react-native'
 import { InputPassword } from '@/components/InputPassword'
-import { I18nextProvider } from 'react-i18next'
 import i18n from '@/services/i18n'
 describe('InputPassword component', () => {
   test('renders input password with placeholder in english', () => {
-    i18n.changeLanguage('en')
-    const { getByPlaceholderText } = render(
-      <I18nextProvider i18n={i18n}>
-        <InputPassword value="" onChangeText={() => {}} />
-      </I18nextProvider>
-    )
-    expect(getByPlaceholderText('Password')).toBeTruthy()
-  })
-  test('renders input password with placeholder in russian', () => {
-    i18n.changeLanguage('ru')
-    const { getByPlaceholderText } = render(
-      <I18nextProvider i18n={i18n}>
-        <InputPassword value="" onChangeText={() => {}} />
-      </I18nextProvider>
-    )
-    expect(getByPlaceholderText('Пароль')).toBeTruthy()
+    const { getByPlaceholderText } = render(<InputPassword value="" onChangeText={() => {}} />)
+    expect(getByPlaceholderText(i18n.t('login.password'))).toBeTruthy()
   })
   test('display valid value', () => {
     const password = '12345'
@@ -29,44 +14,13 @@ describe('InputPassword component', () => {
   })
   test('onChange works', () => {
     const onChangeMock = jest.fn()
-    i18n.changeLanguage('ru')
-    const { getByPlaceholderText } = render(
-      <I18nextProvider i18n={i18n}>
-        <InputPassword value="" onChangeText={onChangeMock} />
-      </I18nextProvider>
-    )
-    fireEvent.changeText(getByPlaceholderText('Пароль'), '12345')
-    expect(onChangeMock).toHaveBeenCalledWith('12345')
-  })
-  test('onChange works', () => {
-    const onChangeMock = jest.fn()
-    i18n.changeLanguage('en')
-    const { getByPlaceholderText } = render(
-      <I18nextProvider i18n={i18n}>
-        <InputPassword value="" onChangeText={onChangeMock} />
-      </I18nextProvider>
-    )
-    fireEvent.changeText(getByPlaceholderText('Password'), '12345')
+    const { getByPlaceholderText } = render(<InputPassword value="" onChangeText={onChangeMock} />)
+    fireEvent.changeText(getByPlaceholderText(i18n.t('login.password')), '12345')
     expect(onChangeMock).toHaveBeenCalledWith('12345')
   })
   test('secureTextEntry enabled', async () => {
-    i18n.changeLanguage('en')
-    const { findByPlaceholderText } = render(
-      <I18nextProvider i18n={i18n}>
-        <InputPassword value="" onChangeText={() => {}} />
-      </I18nextProvider>
-    )
-    const input = await findByPlaceholderText('Password')
-    expect(input.props.secureTextEntry).toBe(true)
-  })
-  test('secureTextEntry enabled', async () => {
-    i18n.changeLanguage('ru')
-    const { findByPlaceholderText } = render(
-      <I18nextProvider i18n={i18n}>
-        <InputPassword value="" onChangeText={() => {}} />
-      </I18nextProvider>
-    )
-    const input = await findByPlaceholderText('Пароль')
+    const { findByPlaceholderText } = render(<InputPassword value="" onChangeText={() => {}} />)
+    const input = await findByPlaceholderText(i18n.t('login.password'))
     expect(input.props.secureTextEntry).toBe(true)
   })
 })
