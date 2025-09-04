@@ -40,7 +40,7 @@ const recipeCardStyles = StyleSheet.create({
     marginHorizontal: 16,
     backgroundColor: COLORS.LIST_ITEM_BG,
     borderRadius: 10,
-    shadowColor: '#000',
+    shadowColor: COLORS.BLACK,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
