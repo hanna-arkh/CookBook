@@ -32,6 +32,13 @@ export default function ListOfRecipes() {
 
     return recipes.filter((recipe: Recipe) => recipe.strMeal.toLowerCase().includes(query))
   }, [recipes, searchQuery])
+  if (error) {
+    return (
+      <View>
+        <Text>Couldnt upload recipes. Please try again later.</Text>
+      </View>
+    )
+  }
   if (isLoading) {
     return (
       <View style={styles.container}>
