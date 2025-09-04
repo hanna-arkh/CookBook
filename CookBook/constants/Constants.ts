@@ -33,6 +33,7 @@ export const LAYOUT = {
   ALIGN: {
     CENTER: 'center',
     ABSOLUTE: 'absolute',
+    ROW: 'row',
   },
   WIDTH: {
     FULL: '100%',
