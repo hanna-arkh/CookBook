@@ -6,6 +6,7 @@ import { Recipe } from '@/types/types'
 import { COLORS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
 import { UI_LABELS } from '@/constants/Strings'
+import DraggableItem from '@/components/DraggableItem'
 
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -52,7 +53,7 @@ export default function ListOfRecipes() {
       <FlatList
         data={filteredRecipes}
         keyExtractor={item => item.idMeal}
-        renderItem={({ item }) => <RecipesItem item={item} />}
+        renderItem={({ item }) => <DraggableItem item={item} />}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
