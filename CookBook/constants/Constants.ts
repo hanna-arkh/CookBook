@@ -32,6 +32,7 @@ export const FONT_STYLES = {
 export const LAYOUT = {
   ALIGN: {
     CENTER: 'center',
+    ABSOLUTE: 'absolute',
     ROW: 'row',
   },
   WIDTH: {

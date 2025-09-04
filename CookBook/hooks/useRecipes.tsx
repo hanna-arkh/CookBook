@@ -7,9 +7,15 @@ export const useRecipes = (): UseRecipes => {
     queryKey: ['recipes'],
     queryFn: async (): Promise<Recipe[]> => {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood')
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`)
+      }
       const data = await response.json()
+      if (!data.meals) {
+        throw new Error('No meals found in response')
+      }
 
-      return data.meals || []
+      return data.meals
     },
   })
 

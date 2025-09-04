@@ -8,6 +8,8 @@ import 'react-native-reanimated'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 const queryClient = new QueryClient()
 import '@/services/i18n'
+import * as Sentry from '@sentry/react-native'
+import '@/services/sentry'
 
 export { ErrorBoundary } from 'expo-router'
 
@@ -16,7 +18,7 @@ export const unstable_settings = {
 }
 SplashScreen.preventAutoHideAsync()
 
-export default function RootLayout() {
+export default Sentry.wrap(function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
@@ -34,7 +36,7 @@ export default function RootLayout() {
   }
 
   return <RootLayoutNav />
-}
+})
 function RootLayoutNav() {
   return (
     <QueryClientProvider client={queryClient}>
