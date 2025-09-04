@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { useLanguage } from '@/hooks/useLanguage'
-import { COLORS } from '@/constants/Constants'
+import { COLORS, FONT_STYLES } from '@/constants/Constants'
 
 export const LanguageSwitcher: React.FC = () => {
   const { currentLanguage, toggleLanguage } = useLanguage()
@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS.WHITE,
-    fontWeight: 'bold',
+    fontWeight: FONT_STYLES.WEIGHT.BOLD,
   },
 })
