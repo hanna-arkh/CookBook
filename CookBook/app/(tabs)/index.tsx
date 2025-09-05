@@ -6,6 +6,7 @@ import { Recipe } from '@/types/types'
 import { COLORS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
 import { UI_LABELS } from '@/constants/Strings'
+import { ProgressBar } from '@/components/ProgressBar'
 
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -27,11 +28,7 @@ export default function ListOfRecipes() {
     return recipes.filter((recipe: Recipe) => recipe.strMeal.toLowerCase().includes(query))
   }, [recipes, searchQuery])
   if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    )
+    return <ProgressBar color={COLORS.BLUE} style={styles.loadingBar} />
   }
   if (error) {
     return (
@@ -88,5 +85,8 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: LAYOUT.WIDTH.EIGHTY_PERCENT,
+  },
+  loadingBar: {
+    marginTop: 10,
   },
 })
