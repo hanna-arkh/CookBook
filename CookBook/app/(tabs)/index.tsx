@@ -7,6 +7,7 @@ import { useRecipes } from '@/hooks/useRecipes'
 import { UI_LABELS } from '@/constants/Strings'
 import DraggableItem from '@/components/DraggableItem'
 import { AnimatedView } from '@/components/AnimatedView'
+import { ProgressBar } from '@/components/ProgressBar'
 
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -29,11 +30,7 @@ export default function ListOfRecipes() {
   }, [recipes, searchQuery])
   const renderItem = useCallback(({ item }: { item: Recipe }) => <DraggableItem item={item} />, [])
   if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    )
+    return <ProgressBar color={COLORS.BLUE} style={styles.loadingBar} />
   }
   if (error) {
     return (
@@ -95,5 +92,8 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: LAYOUT.WIDTH.EIGHTY_PERCENT,
+  },
+  loadingBar: {
+    marginTop: 10,
   },
 })
