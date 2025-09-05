@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router'
 import { useAuthStore } from '@/store/store'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { useTranslation } from 'react-i18next'
+import { AnimatedView } from '@/components/AnimatedView'
 
 export default function Profile() {
   const { isLoggedIn, logout } = useAuthStore()
@@ -22,13 +23,15 @@ export default function Profile() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.languageContainer}>
-        <LanguageSwitcher />
+    <AnimatedView>
+      <View style={styles.container}>
+        <View style={styles.languageContainer}>
+          <LanguageSwitcher />
+        </View>
+        <Text style={styles.loadingText}>{t('profile.loading')}</Text>
+        <ButtonQuit onPress={handleLogout} />
       </View>
-      <Text style={styles.loadingText}>{t('profile.loading')}</Text>
-      <ButtonQuit onPress={handleLogout} />
-    </View>
+    </AnimatedView>
   )
 }
 const styles = StyleSheet.create({
