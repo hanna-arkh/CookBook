@@ -47,6 +47,7 @@ export default function ListOfRecipes() {
       <TextInput
         style={styles.searchInput}
         placeholder={UI_LABELS.SEARCH}
+        placeholderTextColor={COLORS.GREY}
         value={searchQuery}
         onChangeText={setSearchQuery}
       />

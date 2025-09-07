@@ -7,14 +7,18 @@ import { useRouter, useLocalSearchParams } from 'expo-router'
 export default function ButtonSwitchAuth() {
   const { t } = useTranslation()
   const router = useRouter()
-  const { mode } = useLocalSearchParams<{ mode: 'register' | 'index ' }>()
+  const { mode } = useLocalSearchParams<{ mode: 'register' | 'index' }>()
   const isRegister = mode === 'register'
   const routeName = isRegister ? ROUTES.AUTH : ROUTES.REGISTER
   const linkText = isRegister ? t('login.loginButton') : t('login.signUp')
 
   return (
     <View>
-      <TouchableOpacity onPress={() => router.push(routeName)}>
+      <TouchableOpacity
+        onPress={() =>
+          router.push({ pathname: routeName, params: { mode: isRegister ? 'index' : 'register' } })
+        }
+      >
         <Text style={styles.link}>{linkText}</Text>
       </TouchableOpacity>
     </View>
