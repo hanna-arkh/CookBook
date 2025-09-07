@@ -43,6 +43,7 @@ export const LAYOUT = {
   },
   SIZE: {
     SMALL: 'small',
+    COVER: 'cover',
   },
 } as const
 
