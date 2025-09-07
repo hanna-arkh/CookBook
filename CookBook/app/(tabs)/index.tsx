@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
 import RecipesItem from '@/components/RecipesItem'
 import { FlatList, RefreshControl } from 'react-native'
@@ -26,6 +26,7 @@ export default function ListOfRecipes() {
 
     return recipes.filter((recipe: Recipe) => recipe.strMeal.toLowerCase().includes(query))
   }, [recipes, searchQuery])
+  const renderItem = useCallback(({ item }: { item: Recipe }) => <RecipesItem item={item} />, [])
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -51,8 +52,10 @@ export default function ListOfRecipes() {
       />
       <FlatList
         data={filteredRecipes}
+        maxToRenderPerBatch={10}
+        removeClippedSubviews={true}
         keyExtractor={item => item.idMeal}
-        renderItem={({ item }) => <RecipesItem item={item} />}
+        renderItem={renderItem}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
