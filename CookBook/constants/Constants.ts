@@ -33,10 +33,17 @@ export const LAYOUT = {
   ALIGN: {
     CENTER: 'center',
     ROW: 'row',
+    ABSOLUTE: 'absolute',
+    RELATIVE: 'relative',
+    HIDDEN: 'hidden',
   },
   WIDTH: {
     FULL: '100%',
     EIGHTY_PERCENT: '80%',
+  },
+  SIZE: {
+    SMALL: 'small',
+    COVER: 'cover',
   },
 } as const
 

@@ -1,7 +1,6 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
-import RecipesItem from '@/components/RecipesItem'
-import { FlatList, RefreshControl } from 'react-native'
+import { FlatList } from 'react-native'
 import { Recipe } from '@/types/types'
 import { COLORS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
@@ -29,6 +28,7 @@ export default function ListOfRecipes() {
 
     return recipes.filter((recipe: Recipe) => recipe.strMeal.toLowerCase().includes(query))
   }, [recipes, searchQuery])
+  const renderItem = useCallback(({ item }: { item: Recipe }) => <DraggableItem item={item} />, [])
   if (isLoading) {
     return <ProgressBar color={COLORS.BLUE} style={styles.loadingBar} />
   }
@@ -46,13 +46,16 @@ export default function ListOfRecipes() {
         <TextInput
           style={styles.searchInput}
           placeholder={UI_LABELS.SEARCH}
+          placeholderTextColor={COLORS.GREY}
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
         <FlatList
           data={filteredRecipes}
+          maxToRenderPerBatch={10}
+          removeClippedSubviews={true}
           keyExtractor={item => item.idMeal}
-          renderItem={({ item }) =>  <DraggableItem item={item} />}
+          renderItem={renderItem}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
