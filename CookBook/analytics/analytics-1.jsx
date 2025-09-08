@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+/* import { useCallback } from 'react'
 
 const handleLoginClick = useCallback(() => {
   sendEvent({
@@ -6,3 +6,4 @@ const handleLoginClick = useCallback(() => {
     data: {},
   })
 }, [])
+ */
