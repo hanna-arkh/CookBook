@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   languageContainer: {
-    position: 'absolute',
+    position: LAYOUT.ALIGN.ABSOLUTE,
     top: 40,
     right: 20,
   },
