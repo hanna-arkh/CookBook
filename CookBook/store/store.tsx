@@ -4,7 +4,11 @@ import { AUTH } from '@/constants/Constants'
 import { ALERTS } from '@/constants/Strings'
 import * as SQLite from 'expo-sqlite'
 import CryptoJS from 'crypto-js'
-import { SECRET_KEY } from '@env'
+import Constants from 'expo-constants'
+const SECRET_KEY = Constants.expoConfig?.extra?.SECRET_KEY
+if (!SECRET_KEY) {
+  throw new Error('SECRET_KEY is missed!')
+}
 type User = {
   email: string
   password: string
@@ -36,11 +40,10 @@ async function setupDatabase(): Promise<SQLite.SQLiteDatabase> {
 const dbPromise = setupDatabase()
 const Storage = {
   setItem: async (key: string, value: string): Promise<void> => {
-    const encrypted = CryptoJS.AES.encrypt(value, SECRET_KEY).toString()
+    const encrypted = CryptoJS.AES.encrypt(value.toString(), SECRET_KEY).toString()
     const db = await dbPromise
     await db.runAsync('INSERT OR REPLACE INTO kv (key, value) VALUES (?, ?)', key, encrypted)
   },
-
   getItem: async (key: string): Promise<string | null> => {
     const db = await dbPromise
     const result = await db.getFirstAsync<{ value: string }>(
@@ -51,18 +54,19 @@ const Storage = {
     try {
       const bytes = CryptoJS.AES.decrypt(result.value, SECRET_KEY)
       const decrypted = bytes.toString(CryptoJS.enc.Utf8)
+      if (!decrypted) throw new Error('Невозможно расшифровать')
 
-      return decrypted || null
+      return decrypted
     } catch {
+      await Storage.removeItem(key)
+
       return null
     }
   },
-
   removeItem: async (key: string): Promise<void> => {
     const db = await dbPromise
     await db.runAsync('DELETE FROM kv WHERE key = ?', key)
   },
-
   clearAll: async (): Promise<void> => {
     const db = await dbPromise
     await db.runAsync('DELETE FROM kv')
@@ -78,7 +82,6 @@ export const useAuthStore = create<AuthState>()(
       error: null,
       users: [],
       currentUser: null,
-
       signIn: async (email, password) => {
         set({ isLoading: true, error: null })
         try {
@@ -100,7 +103,6 @@ export const useAuthStore = create<AuthState>()(
           set({ isLoading: false })
         }
       },
-
       register: async (email, password) => {
         set({ isLoading: true, error: null })
         try {
@@ -124,7 +126,6 @@ export const useAuthStore = create<AuthState>()(
           set({ isLoading: false })
         }
       },
-
       logout: () => {
         set({
           isLoggedIn: false,
@@ -133,7 +134,6 @@ export const useAuthStore = create<AuthState>()(
           error: null,
         })
       },
-
       clearError: () => set({ error: null }),
     }),
     {

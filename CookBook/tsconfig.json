@@ -3,17 +3,19 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "jsx": "react-native"
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts",
     "analytics/analytics-1.jsx",
     "analytics/analytics-2.js",
-    "analytics/analytics-1.jsx"
+    "analytics/analytics-1.jsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
   ]
 }

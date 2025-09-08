@@ -7,7 +7,6 @@ describe('InputEmail Component', () => {
     const { getByPlaceholderText } = render(<InputEmail value="" onChangeText={() => {}} />)
     expect(getByPlaceholderText(i18n.t('login.email'))).toBeTruthy()
   })
-
   test('shows correct email value', () => {
     const email = 'user@test.com'
     const { getByDisplayValue } = render(<InputEmail value={email} onChangeText={() => {}} />)
@@ -19,7 +18,6 @@ describe('InputEmail Component', () => {
     fireEvent.changeText(getByPlaceholderText(i18n.t('login.email')), 'test@mail.com')
     expect(onChangeMock).toHaveBeenCalledWith('test@mail.com')
   })
-
   test('looks correct (snapshot)', () => {
     const { toJSON } = render(<InputEmail value="test@example.com" onChangeText={() => {}} />)
     expect(toJSON()).toMatchSnapshot()

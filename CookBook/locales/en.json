@@ -10,7 +10,8 @@
     "errors": {
       "invalidCredentials": "Invalid email or password",
       "loginFailed": "Login failed",
-      "invalidEmail": "Please write a valid email address."
+      "invalidEmail": "Please write a valid email address.",
+      "couldntUploadRecipes": "Couldnt upload recipes. Please try again later."
     }
   },
   "profile": {

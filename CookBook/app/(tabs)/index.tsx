@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
 import RecipesItem from '@/components/RecipesItem'
 import { FlatList, RefreshControl } from 'react-native'
@@ -6,18 +6,14 @@ import { Recipe } from '@/types/types'
 import { COLORS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
 import { UI_LABELS } from '@/constants/Strings'
-import * as Sentry from '@sentry/react-native'
 import { AnimatedView } from '@/components/AnimatedView'
+import { useTranslation } from 'react-i18next'
 
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const { data: recipes = [], isLoading, error } = useRecipes()
   const [refreshing, setRefreshing] = useState<boolean>(false)
-  useEffect(() => {
-    if (error) {
-      Sentry.captureException(error)
-    }
-  }, [error])
+  const { t } = useTranslation()
   const onRefresh = () => {
     setRefreshing(true)
     setTimeout(() => {
@@ -36,14 +32,14 @@ export default function ListOfRecipes() {
   if (error) {
     return (
       <View>
-        <Text>Couldnt upload recipes. Please try again later.</Text>
+        <Text>{t('login.errors.couldntUploadRecipes')}</Text>
       </View>
     )
   }
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <Text>Loading...</Text>
+        <Text>{t('common.loading')}</Text>
       </View>
     )
   }
