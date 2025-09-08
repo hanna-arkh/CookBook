@@ -6,8 +6,8 @@ import { COLORS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
 import { UI_LABELS } from '@/constants/Strings'
 import DraggableItem from '@/components/DraggableItem'
-import { AnimatedView } from '@/components/AnimatedView'
 import { ProgressBar } from '@/components/ProgressBar'
+import { AnimatedView } from '@/components/AnimatedView'
 
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState<string>('')
