@@ -3,6 +3,8 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { AUTH } from '@/constants/Constants'
 import { ALERTS } from '@/constants/Strings'
 import * as SQLite from 'expo-sqlite'
+import CryptoJS from 'crypto-js'
+import { SECRET_KEY } from '@env'
 type User = {
   email: string
   password: string
@@ -34,8 +36,9 @@ async function setupDatabase(): Promise<SQLite.SQLiteDatabase> {
 const dbPromise = setupDatabase()
 const Storage = {
   setItem: async (key: string, value: string): Promise<void> => {
+    const encrypted = CryptoJS.AES.encrypt(value, SECRET_KEY).toString()
     const db = await dbPromise
-    await db.runAsync('INSERT OR REPLACE INTO kv (key, value) VALUES (?, ?)', key, value)
+    await db.runAsync('INSERT OR REPLACE INTO kv (key, value) VALUES (?, ?)', key, encrypted)
   },
 
   getItem: async (key: string): Promise<string | null> => {
@@ -44,8 +47,15 @@ const Storage = {
       'SELECT value FROM kv WHERE key = ?',
       key
     )
+    if (!result?.value) return null
+    try {
+      const bytes = CryptoJS.AES.decrypt(result.value, SECRET_KEY)
+      const decrypted = bytes.toString(CryptoJS.enc.Utf8)
 
-    return result?.value ?? null
+      return decrypted || null
+    } catch {
+      return null
+    }
   },
 
   removeItem: async (key: string): Promise<void> => {

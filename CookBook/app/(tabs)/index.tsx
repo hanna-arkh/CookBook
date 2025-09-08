@@ -7,6 +7,7 @@ import { COLORS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
 import { UI_LABELS } from '@/constants/Strings'
 import * as Sentry from '@sentry/react-native'
+import { AnimatedView } from '@/components/AnimatedView'
 
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -48,27 +49,29 @@ export default function ListOfRecipes() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <TextInput
-        style={styles.searchInput}
-        placeholder={UI_LABELS.SEARCH}
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
-      <FlatList
-        data={filteredRecipes}
-        keyExtractor={item => item.idMeal}
-        renderItem={({ item }) => <RecipesItem item={item} />}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            colors={[COLORS.GREY]}
-            progressBackgroundColor={COLORS.BLACK}
-          />
-        }
-      />
-    </SafeAreaView>
+    <AnimatedView>
+      <SafeAreaView style={styles.container}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder={UI_LABELS.SEARCH}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+        <FlatList
+          data={filteredRecipes}
+          keyExtractor={item => item.idMeal}
+          renderItem={({ item }) => <RecipesItem item={item} />}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={[COLORS.GREY]}
+              progressBackgroundColor={COLORS.BLACK}
+            />
+          }
+        />
+      </SafeAreaView>
+    </AnimatedView>
   )
 }
 const styles = StyleSheet.create({
