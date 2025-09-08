@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router'
 import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import ButtonSwitchAuth from '@/components/ButtonSwitchAuth'
 import { useTranslation } from 'react-i18next'
+import { logEvent } from 'expo-firebase-analytics'
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function RegistrationScreen() {
@@ -23,8 +24,16 @@ export default function RegistrationScreen() {
       router.replace(ROUTES.TABS)
     }
   }, [isLoggedIn])
-  const handleRegister = useCallback(() => {
-    register(email, password)
+  const handleRegister = useCallback(async () => {
+    try {
+      await register(email, password)
+      await logEvent('register', {
+        method: 'email',
+        user_email: email,
+      })
+    } catch (error) {
+      console.error('Ошибка при регистрации:', error)
+    }
   }, [register, email, password])
   const handleEmailChange = useCallback((text: string) => {
     setEmail(text)

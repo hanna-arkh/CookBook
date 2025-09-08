@@ -25,6 +25,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "googleServicesFile": "./google-services.json",
       "edgeToEdgeEnabled": true,
       "package": "com.hanna.arkh.CookBook"
     },
@@ -36,12 +37,35 @@
     "plugins": [
       "expo-router",
       "expo-sqlite",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/crashlytics",
       [
         "@sentry/react-native/expo",
         {
           "url": "https://sentry.io/",
           "project": "react-native",
           "organization": "hannaarkh"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      [
+        "expo-firebase-analytics",
+        {
+          "firebaseConfig": {
+            "apiKey": "AIzaSyC4QWc4p3kAvswSCq4dW1gRtfgzWp_Kuto",
+            "projectId": "cookbook-e0271",
+            "project_number": "959183796747",
+            "storageBucket": "cookbook-e0271.firebasestorage.app",
+            "appId": "1:959183796747:android:aecd8348416fedcccfa50e"
+          }
         }
       ]
     ],
