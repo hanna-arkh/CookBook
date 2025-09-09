@@ -2,11 +2,12 @@ import React, { useEffect } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { COLORS, LAYOUT, ROUTES } from '@/constants/Constants'
 import { useRouter } from 'expo-router'
-import { useAuthStore } from '@/store/store'
 import { AnimatedView } from '@/components/AnimatedView'
+import { useAuthStore } from '@/store/store'
 
 export default function Profile() {
   const { isLoggedIn } = useAuthStore()
+  const email = useAuthStore(state => state.currentUser)
   const router = useRouter()
   useEffect(() => {
     if (!isLoggedIn) {
@@ -17,7 +18,7 @@ export default function Profile() {
   return (
     <AnimatedView>
       <View style={styles.container}>
-        <Text style={styles.loadingText}>Loading...</Text>
+        <Text style={styles.loadingText}>Hello, {email}</Text>
       </View>
     </AnimatedView>
   )
@@ -33,6 +34,6 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 10,
     fontSize: 16,
-    color: COLORS.GREY,
+    color: COLORS.BLACK,
   },
 })
