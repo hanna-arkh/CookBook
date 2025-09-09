@@ -14,6 +14,7 @@ export default function RegistrationScreen() {
   const { register, isLoading, error, isLoggedIn } = useAuthStore()
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
+  const [emailTouched, setEmailTouched] = useState<boolean>(false)
   const [password, setPassword] = useState<string>('')
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false)
   const isFormValid = isEmailValid && email && password
@@ -30,14 +31,19 @@ export default function RegistrationScreen() {
     setEmail(text)
     setIsEmailValid(emailRegex.test(text))
   }, [])
+  const handleBlur = () => {
+    setEmailTouched(true)
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('login.letsSignUp')}</Text>
-      <InputEmail value={email} onChangeText={handleEmailChange} isValid={isEmailValid} />
+      <InputEmail value={email} onChangeText={handleEmailChange} onBlur={handleBlur} />
+      {emailTouched && !isEmailValid && (
+        <Text style={styles.invalidEmail}>{t('login.errors.invalidEmail')}</Text>
+      )}
       <InputPassword value={password} onChangeText={setPassword} />
-      {error && <Text style={{ color: COLORS.RED }}>{error}</Text>}
-      {isEmailValid || <Text style={{ color: COLORS.RED }}>{t('login.errors.invalidEmail')}</Text>}
+      {error && <Text style={styles.invalidEmail}>{error}</Text>}
       <ButtonRegister onPress={handleRegister} isLoading={isLoading} disabled={!isFormValid} />
       <ButtonSwitchAuth />
     </View>
@@ -62,5 +68,9 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: LAYOUT.WIDTH.EIGHTY_PERCENT,
+  },
+  invalidEmail: {
+    color: COLORS.RED,
+    marginBottom: 10,
   },
 })
