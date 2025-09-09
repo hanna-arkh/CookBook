@@ -17,7 +17,8 @@
   "profile": {
     "title": "Profile",
     "loading": "Loading Profile...",
-    "logout": "Logout"
+    "logout": "Logout",
+    "listOfRecipes": "List of recipes"
   },
   "common": {
     "search": "Search",

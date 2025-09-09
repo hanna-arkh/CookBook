@@ -3,7 +3,7 @@ import AntDesign from '@expo/vector-icons/AntDesign'
 import { Tabs } from 'expo-router'
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6'
 import { COLORS, ROUTES, ICONS } from '@/constants/Constants'
-import { UI_LABELS } from '@/constants/Strings'
+import { useTranslation } from 'react-i18next'
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof AntDesign>['name']
   color: string
@@ -18,6 +18,8 @@ function TabBarIconDish(props: {
 }
 
 export default function TabLayout() {
+  const { t } = useTranslation()
+
   return (
     <Tabs
       screenOptions={{
@@ -28,14 +30,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name={ROUTES.MAIN_TAB_INDEX}
         options={{
-          title: UI_LABELS.RECIPES_LIST,
+          title: t('profile.listOfRecipes'),
           tabBarIcon: ({ color }) => <TabBarIconDish color={color} name={ICONS.BOWL_FOOD} />,
         }}
       />
       <Tabs.Screen
         name={ROUTES.PROFILE}
         options={{
-          title: UI_LABELS.PROFILE,
+          title: t('profile.title'),
           tabBarIcon: ({ color }) => <TabBarIcon name={ROUTES.PROFILE} color={color} />,
         }}
       />
