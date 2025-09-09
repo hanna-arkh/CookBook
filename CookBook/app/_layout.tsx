@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
-import { useEffect } from 'react'
 import 'react-native-reanimated'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 const queryClient = new QueryClient()
 import '@/services/i18n'
 import * as Sentry from '@sentry/react-native'
 import '@/services/sentry'
+import * as Notifications from 'expo-notifications'
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
+  }),
+})
 
 export { ErrorBoundary } from 'expo-router'
 
