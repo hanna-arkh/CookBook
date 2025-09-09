@@ -29,5 +29,6 @@ export const useRecipes = (): UseRecipes => {
     isLoading: result.isLoading,
     error: result.error,
     isError: result.isError,
+    refetch: result.refetch,
   }
 }

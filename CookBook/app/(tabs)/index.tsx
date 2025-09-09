@@ -7,18 +7,23 @@ import { COLORS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
 import { AnimatedView } from '@/components/AnimatedView'
 import { useTranslation } from 'react-i18next'
+import * as Sentry from '@sentry/react-native'
 
 export default function ListOfRecipes() {
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const { data: recipes = [], isLoading, error } = useRecipes()
+  const { data: recipes = [], isLoading, error, refetch } = useRecipes()
   const [refreshing, setRefreshing] = useState<boolean>(false)
   const { t } = useTranslation()
-  const onRefresh = () => {
+  const onRefresh = async () => {
     setRefreshing(true)
-    setTimeout(() => {
-      setSearchQuery('')
+    try {
+      await refetch()
+    } catch (e) {
+      Sentry.captureException(e)
+      throw e
+    } finally {
       setRefreshing(false)
-    }, 2000)
+    }
   }
   const filteredRecipes: Recipe[] = useMemo(() => {
     if (!searchQuery) {

@@ -1,3 +1,5 @@
+import { QueryObserverResult } from '@tanstack/react-query'
+
 export type Recipe = {
   strMeal: string
   strMealThumb: string
@@ -9,4 +11,5 @@ export type UseRecipes = {
   isLoading: boolean
   error: Error | null
   isError: boolean
+  refetch: () => Promise<QueryObserverResult<Recipe[], Error>>
 }
