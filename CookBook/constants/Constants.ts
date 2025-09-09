@@ -21,6 +21,7 @@ export const ROUTES = {
   REGISTER_NAME: 'register',
   TABS_DOT: './(tabs)',
   TABS_MAIN: '(tabs)',
+  SETTINGS: 'settings',
 } as const
 
 export const FONT_STYLES = {
@@ -43,7 +44,8 @@ export const LAYOUT = {
 
 export const ICONS = {
   BOWL_FOOD: 'bowl-food',
-  PROFILE: 'profile',
+  LIST: 'list-alt',
+  SETTINGS: 'settings-outline',
 } as const
 
 export const AUTH = {

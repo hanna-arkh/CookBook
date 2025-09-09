@@ -18,7 +18,8 @@
     "title": "Профиль",
     "loading": "Загрузка профиля...",
     "logout": "Выйти",
-    "listOfRecipes": "Список рецептов"
+    "listOfRecipes": "Список рецептов",
+    "settings": "Настройки"
   },
   "common": {
     "search": "Поиск",
