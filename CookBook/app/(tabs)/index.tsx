@@ -2,10 +2,9 @@ import React, { useState, useMemo } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native'
 import RecipesItem from '@/components/RecipesItem'
 import { FlatList, RefreshControl } from 'react-native'
-import { Recipe } from '@/types/types'
+import { Recipe } from '@/types/recipes'
 import { COLORS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
-import { UI_LABELS } from '@/constants/Strings'
 import { AnimatedView } from '@/components/AnimatedView'
 import { useTranslation } from 'react-i18next'
 
@@ -49,7 +48,7 @@ export default function ListOfRecipes() {
       <SafeAreaView style={styles.container}>
         <TextInput
           style={styles.searchInput}
-          placeholder={UI_LABELS.SEARCH}
+          placeholder={t('common.search')}
           value={searchQuery}
           onChangeText={setSearchQuery}
         />

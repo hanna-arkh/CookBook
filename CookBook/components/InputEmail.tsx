@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
 import { COLORS, LAYOUT, AUTH } from '@/constants/Constants'
-import { PropsEmail } from '@/types/types'
+import { PropsEmail } from '@/types/auth'
 import { useTranslation } from 'react-i18next'
 
 export const InputEmail = ({ value, onChangeText }: PropsEmail) => {

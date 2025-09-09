@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Recipe, UseRecipes } from '@/types/types'
+import { Recipe, UseRecipes } from '@/types/recipes'
 import * as Sentry from '@sentry/react-native'
 
 export const useRecipes = (): UseRecipes => {

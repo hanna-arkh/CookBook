@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
 import { COLORS, LAYOUT, AUTH } from '@/constants/Constants'
-import { PropsPassword } from '@/types/types'
+import { PropsPassword } from '@/types/auth'
 import { useTranslation } from 'react-i18next'
 
 export const InputPassword = ({ value, onChangeText }: PropsPassword) => {

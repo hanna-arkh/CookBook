@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Text, Image, StyleSheet } from 'react-native'
-import { Recipe } from '@/types/types'
+import { Recipe } from '@/types/recipes'
 import { COLORS, LAYOUT } from '@/constants/Constants'
 
 export default function RecipesItem({ item }: { item: Recipe }) {
