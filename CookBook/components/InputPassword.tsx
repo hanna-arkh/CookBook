@@ -12,9 +12,8 @@ export const InputPassword = ({ value, onChangeText }: PropsPassword) => {
       <TextInput
         style={styles.input}
         placeholder={t('login.password')}
-        keyboardType={AUTH.EMAIL_KEYBOARD}
         autoCorrect={false}
-        secureTextEntry
+        secureTextEntry={true}
         value={value}
         onChangeText={onChangeText}
       />

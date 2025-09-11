@@ -8,10 +8,11 @@ import { useRouter } from 'expo-router'
 import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import ButtonSwitchAuth from '@/components/ButtonSwitchAuth'
 import { useTranslation } from 'react-i18next'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function RegistrationScreen() {
-  const { register, isLoading, error, isLoggedIn } = useAuthStore()
+  const { register, isLoading, isLoggedIn } = useAuthStore()
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
   const [emailTouched, setEmailTouched] = useState<boolean>(false)
@@ -37,13 +38,15 @@ export default function RegistrationScreen() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.languageContainer}>
+        <LanguageSwitcher />
+      </View>
       <Text style={styles.title}>{t('login.letsSignUp')}</Text>
       <InputEmail value={email} onChangeText={handleEmailChange} onBlur={handleBlur} />
       {emailTouched && !isEmailValid && (
         <Text style={styles.invalidEmail}>{t('login.errors.invalidEmail')}</Text>
       )}
       <InputPassword value={password} onChangeText={setPassword} />
-      {error && <Text style={styles.invalidEmail}>{error}</Text>}
       <ButtonRegister onPress={handleRegister} isLoading={isLoading} disabled={!isFormValid} />
       <ButtonSwitchAuth />
     </View>
@@ -59,6 +62,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: FONT_STYLES.WEIGHT.BOLD,
     marginVertical: 30,
+  },
+  languageContainer: {
+    position: LAYOUT.ALIGN.ABSOLUTE,
+    top: 40,
+    right: 20,
   },
   link: {
     marginTop: 20,

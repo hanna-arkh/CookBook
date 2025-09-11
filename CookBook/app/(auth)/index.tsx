@@ -17,6 +17,7 @@ export default function LoginScreen() {
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [emailTouched, setEmailTouched] = useState<boolean>(false)
   const isFormValid = !!email && !!password
   const { t } = useTranslation()
   useEffect(() => {
@@ -31,6 +32,9 @@ export default function LoginScreen() {
       console.log(ALERTS.LOGIN_FAILED, err)
     }
   }
+  const handleBlur = () => {
+    setEmailTouched(true)
+  }
 
   return (
     <View style={styles.container}>
@@ -38,7 +42,7 @@ export default function LoginScreen() {
         <LanguageSwitcher />
       </View>
       <Text style={styles.title}>{t('login.title')}</Text>
-      <InputEmail value={email} onChangeText={setEmail} />
+      <InputEmail value={email} onChangeText={setEmail} onBlur={handleBlur} />
       <InputPassword value={password} onChangeText={setPassword} />
       {error && error !== ALERTS.USER_NOT_FOUND && (
         <Text style={{ color: COLORS.RED }}>{error}</Text>
@@ -55,7 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: LAYOUT.ALIGN.CENTER,
   },
   languageContainer: {
-    position: 'absolute',
+    position: LAYOUT.ALIGN.ABSOLUTE,
     top: 40,
     right: 20,
   },

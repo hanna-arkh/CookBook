@@ -9,6 +9,8 @@ export const COLORS = {
   BUTTON_REGISTRATION: '#007AFF',
   INPUT_BG_COLOR: '#f0f0f0',
   INPUT_BORDER: '#ccc',
+  LIGHT_GREY: '#f0f2f5',
+  SECONDARY_LIGHT: '#e0e0e0',
 } as const
 
 export const ROUTES = {

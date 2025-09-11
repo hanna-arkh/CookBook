@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { useLanguage } from '@/hooks/useLanguage'
-import { COLORS, FONT_STYLES } from '@/constants/Constants'
+import { COLORS, LAYOUT } from '@/constants/Constants'
 
 export const LanguageSwitcher: React.FC = () => {
   const { currentLanguage, toggleLanguage } = useLanguage()
@@ -14,13 +14,13 @@ export const LanguageSwitcher: React.FC = () => {
 }
 const styles = StyleSheet.create({
   button: {
-    padding: 10,
+    padding: 7,
     backgroundColor: COLORS.BUTTON_REGISTRATION,
-    borderRadius: 5,
-    marginHorizontal: 10,
+    borderRadius: 8,
+    paddingHorizontal: 30,
+    alignItems: LAYOUT.ALIGN.CENTER,
   },
   text: {
     color: COLORS.WHITE,
-    fontWeight: FONT_STYLES.WEIGHT.BOLD,
   },
 })
