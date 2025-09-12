@@ -17,11 +17,24 @@
   "profile": {
     "title": "Profile",
     "loading": "Loading Profile...",
-    "logout": "Logout"
+    "logout": "Logout",
+    "listOfRecipes": "List of recipes",
+    "settings": "Settings",
+    "mainProfile": "This is your main profile in the app."
   },
   "common": {
     "search": "Search",
     "loading": "Loading...",
     "error": "Error"
+  },
+  "settings": {
+    "settings": "Settings",
+    "manageAccText": "Manage your account and the app",
+    "quit": "Log out of the system",
+    "actionQuit": "This action will end your current session",
+    "language": "Language",
+    "chooseLanguage": "Select your preferred interface language.",
+    "notification": "Notification",
+    "enableNotification": "Notification turn on/off"
   }
 }

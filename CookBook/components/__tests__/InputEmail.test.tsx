@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react-native'
 import { InputEmail } from '@/components/InputEmail'
-import i18n from '@/services/i18n'
+import i18n from '@/localization/i18n'
 describe('InputEmail Component', () => {
   test('renders email input with placeholder in english', () => {
     const { getByPlaceholderText } = render(<InputEmail value="" onChangeText={() => {}} />)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
-import { COLORS, LAYOUT, AUTH } from '@/constants/Constants'
-import { PropsPassword } from '@/types/types'
+import { COLORS, LAYOUT } from '@/constants/Constants'
+import { PropsPassword } from '@/types/auth'
 import { useTranslation } from 'react-i18next'
 
 export const InputPassword = ({ value, onChangeText }: PropsPassword) => {
@@ -12,7 +12,6 @@ export const InputPassword = ({ value, onChangeText }: PropsPassword) => {
       <TextInput
         style={styles.input}
         placeholder={t('login.password')}
-        keyboardType={AUTH.EMAIL_KEYBOARD}
         autoCorrect={false}
         secureTextEntry
         value={value}

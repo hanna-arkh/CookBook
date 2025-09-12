@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { COLORS, LAYOUT } from '@/constants/Constants'
-import { ButtonQuitProps } from '@/types/types'
+import { ButtonQuitProps } from '@/types/button'
 import { useTranslation } from 'react-i18next'
 
 export const ButtonQuit = ({ onPress }: ButtonQuitProps) => {

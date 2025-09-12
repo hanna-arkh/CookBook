@@ -43,3 +43,5 @@ GoogleService-Info.plist
 fcm-key.json
 sentry.properties
 google-services.json
+env
+sentryclirc

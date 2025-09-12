@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react-native'
 import { InputPassword } from '@/components/InputPassword'
-import i18n from '@/services/i18n'
+import i18n from '@/localization/i18n'
 describe('InputPassword component', () => {
   test('renders input password with placeholder in english', () => {
     const { getByPlaceholderText } = render(<InputPassword value="" onChangeText={() => {}} />)
