@@ -95,6 +95,7 @@ export default function ListOfRecipes() {
     })
     const responseListener = Notifications.addNotificationResponseReceivedListener(response => {
       console.log(response)
+      console.log('token', expoPushToken)
     })
 
     return () => {

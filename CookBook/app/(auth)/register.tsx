@@ -5,6 +5,7 @@ import { InputPassword } from '@/components/InputPassword'
 import { ButtonRegister } from '@/components/ButtonRegister'
 import { useAuthStore } from '@/store/store'
 import { useRouter } from 'expo-router'
+import analytics from '@react-native-firebase/analytics'
 import { COLORS, ROUTES, LAYOUT, FONT_STYLES } from '@/constants/Constants'
 import ButtonSwitchAuth from '@/components/ButtonSwitchAuth'
 import { useTranslation } from 'react-i18next'
@@ -23,8 +24,16 @@ export default function RegistrationScreen() {
       router.replace(ROUTES.TABS)
     }
   }, [isLoggedIn])
-  const handleRegister = useCallback(() => {
-    register(email, password)
+  const handleRegister = useCallback(async () => {
+    try {
+      await register(email, password)
+      await analytics().logEvent('register', {
+        method: 'email',
+        user_email: email,
+      })
+    } catch (error) {
+      console.error('Ошибка при регистрации:', error)
+    }
   }, [register, email, password])
   const handleEmailChange = useCallback((text: string) => {
     setEmail(text)

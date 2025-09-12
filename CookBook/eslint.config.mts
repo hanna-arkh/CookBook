@@ -20,6 +20,14 @@ export default defineConfig([
       ],
     },
   },
+  {
+    files: ['app.config.js', 'metro.config.js', 'babel.config.js', 'eslint.config.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
 ])

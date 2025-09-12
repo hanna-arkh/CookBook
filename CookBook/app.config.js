@@ -27,6 +27,7 @@ export default {
       },
       edgeToEdgeEnabled: true,
       package: 'com.hanna.arkh.CookBook',
+      googleServicesFile: './android/app/google-services.json',
     },
     web: {
       bundler: 'metro',

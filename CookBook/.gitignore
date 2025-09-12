@@ -38,4 +38,8 @@ yarn-error.*
 
 .env.local
 .env
+.sentryclirc
+GoogleService-Info.plist
+fcm-key.json
+sentry.properties
 google-services.json

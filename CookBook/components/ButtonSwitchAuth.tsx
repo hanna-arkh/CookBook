@@ -14,7 +14,7 @@ export default function ButtonSwitchAuth() {
 
   return (
     <View>
-      <TouchableOpacity onPress={() => router.push(routeName)}>
+      <TouchableOpacity onPress={() => router.navigate(routeName)}>
         <Text style={styles.link}>{linkText}</Text>
       </TouchableOpacity>
     </View>
