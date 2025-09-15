@@ -25,7 +25,8 @@
   "common": {
     "search": "Поиск",
     "loading": "Загрузка...",
-    "error": "Ошибка"
+    "error": "Ошибка",
+    "success": "Успех"
   },
   "settings": {
     "settings": "Настройки",
@@ -35,6 +36,9 @@
     "language": "Язык",
     "chooseLanguage": "Выберите предпочитаемый язык интерфейса.",
     "notification": "Уведомления",
-    "enableNotification": "Уведомления включить/выключить"
+    "enableNotification": "Уведомления включить/выключить",
+    "notificationsEnabled": "Уведомления включены",
+    "enableNotifications": "Включить уведомления",
+    "permissionCheck": "Проверка разрешений..."
   }
 }

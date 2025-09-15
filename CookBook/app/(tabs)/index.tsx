@@ -9,7 +9,6 @@ import { FlatList, RefreshControl } from 'react-native'
 import { Recipe } from '@/types/recipes'
 import { COLORS, FONT_STYLES, LAYOUT } from '@/constants/Constants'
 import { useRecipes } from '@/hooks/useRecipes'
-import { UI_LABELS } from '@/constants/Strings'
 import { AnimatedView } from '@/components/AnimatedView'
 import { useTranslation } from 'react-i18next'
 async function sendPushNotification(expoPushToken: string) {
@@ -91,11 +90,9 @@ export default function ListOfRecipes() {
         if (token) setExpoPushToken(token)
       })
       .catch(error => console.log('Push error:', error))
-
     const notificationListener = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification)
     })
-
     const responseListener = Notifications.addNotificationResponseReceivedListener(response => {
       console.log('Notification response:', response)
       console.log('Current token:', expoPushToken)

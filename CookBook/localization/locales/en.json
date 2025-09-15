@@ -25,7 +25,8 @@
   "common": {
     "search": "Search",
     "loading": "Loading...",
-    "error": "Error"
+    "error": "Error",
+    "success": "Success"
   },
   "settings": {
     "settings": "Settings",
@@ -35,6 +36,9 @@
     "language": "Language",
     "chooseLanguage": "Select your preferred interface language.",
     "notification": "Notification",
-    "enableNotification": "Notification turn on/off"
+    "enableNotification": "Notification turn on/off",
+    "notificationsEnabled": "Notifications are enabled",
+    "enableNotifications": "Enable notifications",
+    "permissionCheck": "Checking permissions..."
   }
 }

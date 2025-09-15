@@ -11,6 +11,8 @@ import {
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
 import Constants from 'expo-constants'
+import { useTranslation } from 'react-i18next'
+import { COLORS, LAYOUT } from '@/constants/Constants'
 interface NotificationToggleProps {
   onTokenChange?: (token: string) => void
 }
@@ -19,6 +21,7 @@ export const NotificationToggle: React.FC<NotificationToggleProps> = ({ onTokenC
   const [hasPermission, setHasPermission] = useState<boolean | null>(null)
   const [isEnabled, setIsEnabled] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const { t } = useTranslation()
   const handleRegistrationError = (errorMessage: string) => {
     Alert.alert('Ошибка', errorMessage)
     setLoading(false)
@@ -56,6 +59,7 @@ export const NotificationToggle: React.FC<NotificationToggleProps> = ({ onTokenC
       if (onTokenChange) {
         onTokenChange(pushTokenString)
       }
+
       return pushTokenString
     } catch (e: unknown) {
       handleRegistrationError(`Ошибка получения токена: ${e}`)
@@ -84,7 +88,8 @@ export const NotificationToggle: React.FC<NotificationToggleProps> = ({ onTokenC
       setIsEnabled(granted)
       if (granted) {
         const token = await getPushToken()
-        Alert.alert('Успех', 'Уведомления включены!')
+        Alert.alert(t('common.success'), t('settings.notificationsEnabled'))
+
         return token
       } else {
         Alert.alert(
@@ -109,7 +114,7 @@ export const NotificationToggle: React.FC<NotificationToggleProps> = ({ onTokenC
       } else {
         await Linking.openSettings()
       }
-    } catch (error) {
+    } catch {
       Alert.alert('Ошибка', 'Не удалось открыть настройки')
     }
   }
@@ -126,15 +131,17 @@ export const NotificationToggle: React.FC<NotificationToggleProps> = ({ onTokenC
   if (loading) {
     return (
       <TouchableOpacity style={styles.button} disabled>
-        <ActivityIndicator size="small" color="#007AFF" />
-        <Text style={styles.text}>Проверка разрешений...</Text>
+        <ActivityIndicator size="small" color={COLORS.BLUE} />
+        <Text style={styles.text}>{t('settings.permissionCheck')}</Text>
       </TouchableOpacity>
     )
   }
 
   return (
     <TouchableOpacity style={styles.button} onPress={toggleNotifications} activeOpacity={0.7}>
-      <Text style={styles.text}>{isEnabled ? 'Уведомления включены' : 'Включить уведомления'}</Text>
+      <Text style={styles.text}>
+        {isEnabled ? t('settings.notificationsEnabled') : t('settings.enableNotifications')}
+      </Text>
     </TouchableOpacity>
   )
 }
@@ -142,11 +149,10 @@ const styles = StyleSheet.create({
   button: {
     padding: 12,
     borderRadius: 8,
-    backgroundColor: '#eee',
-    alignItems: 'center',
+    backgroundColor: COLORS.BUTTON_REGISTRATION,
+    alignItems: LAYOUT.ALIGN.CENTER,
   },
   text: {
-    fontSize: 16,
-    fontWeight: '500',
+    color: COLORS.WHITE,
   },
 })
