@@ -31,8 +31,7 @@ async function sendPushNotification(expoPushToken: string) {
   })
 }
 function handleRegistrationError(errorMessage: string) {
-  alert(errorMessage)
-  throw new Error(errorMessage)
+  console.log(errorMessage)
 }
 async function registerForPushNotificationsAsync() {
   if (Platform.OS === 'android') {
@@ -88,14 +87,18 @@ export default function ListOfRecipes() {
   )
   useEffect(() => {
     registerForPushNotificationsAsync()
-      .then(token => setExpoPushToken(token ?? ''))
-      .catch(error => setExpoPushToken(`${error}`))
+      .then(token => {
+        if (token) setExpoPushToken(token)
+      })
+      .catch(error => console.log('Push error:', error))
+
     const notificationListener = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification)
     })
+
     const responseListener = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response)
-      console.log('token', expoPushToken)
+      console.log('Notification response:', response)
+      console.log('Current token:', expoPushToken)
     })
 
     return () => {
@@ -152,7 +155,7 @@ export default function ListOfRecipes() {
         </View>
         <TextInput
           style={styles.searchInput}
-          placeholder={UI_LABELS.SEARCH}
+          placeholder={t('common.search')}
           value={searchQuery}
           onChangeText={setSearchQuery}
         />

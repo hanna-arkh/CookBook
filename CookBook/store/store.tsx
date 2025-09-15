@@ -89,7 +89,7 @@ export const useAuthStore = create<AuthState>()(
           const user = users.find(u => u.email === email && u.password === password)
           if (user) {
             set({
-              userToken: AUTH.STORAGE_KEY,
+              userToken: `${email}-token`,
               isLoggedIn: true,
               currentUser: email,
               error: null,
@@ -115,7 +115,7 @@ export const useAuthStore = create<AuthState>()(
           const newUser = { email, password }
           set({
             users: [...users, newUser],
-            userToken: AUTH.STORAGE_KEY,
+            userToken: `${email}-token`,
             isLoggedIn: true,
             currentUser: email,
             error: null,

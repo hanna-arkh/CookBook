@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import { ButtonQuit } from '@/components/ButtonQuit'
 import { COLORS, LAYOUT, ROUTES } from '@/constants/Constants'
 import { useRouter } from 'expo-router'
@@ -8,6 +8,8 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { AnimatedView } from '@/components/AnimatedView'
 import { FontAwesome } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
+import { NotificationToggle } from '@/components/NotificationToggle'
+import { Ionicons } from '@expo/vector-icons'
 
 export default function SettingsScreen() {
   const { logout } = useAuthStore()
@@ -20,33 +22,38 @@ export default function SettingsScreen() {
 
   return (
     <AnimatedView>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{t('settings.settings')}</Text>
-          <Text style={styles.subtitle}>{t('settings.manageAccText')}</Text>
-        </View>
-
-        <View style={styles.card}>
-          <View style={styles.cardHeader}>
-            <FontAwesome name="globe" size={20} color={COLORS.GREY} />
-            <Text style={styles.sectionTitle}>{t('settings.language')}</Text>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.title}>{t('settings.settings')}</Text>
+            <Text style={styles.subtitle}>{t('settings.manageAccText')}</Text>
           </View>
-          <Text style={styles.sectionDescription}>{t('settings.chooseLanguage')}</Text>
-          <LanguageSwitcher />
-        </View>
 
-        <View style={styles.card}>
-          <Text style={styles.logoutTitle}>{t('settings.notification')}</Text>
-          <Text style={styles.sectionDescription}>{t('settings.enableNotification')}</Text>
-          <ButtonQuit onPress={handleLogout} />
-        </View>
+          <View style={styles.card}>
+            <View style={styles.cardHeader}>
+              <FontAwesome name="globe" size={20} color={COLORS.GREY} />
+              <Text style={styles.sectionTitle}>{t('settings.language')}</Text>
+            </View>
+            <Text style={styles.sectionDescription}>{t('settings.chooseLanguage')}</Text>
+            <LanguageSwitcher />
+          </View>
 
-        <View style={styles.card}>
-          <Text style={styles.logoutTitle}>{t('settings.quit')}</Text>
-          <Text style={styles.sectionDescription}>{t('settings.actionQuit')}</Text>
-          <ButtonQuit onPress={handleLogout} />
+          <View style={styles.card}>
+            <View style={styles.cardHeader}>
+              <Ionicons name={'notifications'} size={20} color={COLORS.GREY} />
+              <Text style={styles.sectionTitle}>{t('settings.notification')}</Text>
+            </View>
+            <Text style={styles.sectionDescription}>{t('settings.enableNotification')}</Text>
+            <NotificationToggle />
+          </View>
+
+          <View style={styles.card}>
+            <Text style={styles.logoutTitle}>{t('settings.quit')}</Text>
+            <Text style={styles.sectionDescription}>{t('settings.actionQuit')}</Text>
+            <ButtonQuit onPress={handleLogout} />
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </AnimatedView>
   )
 }
